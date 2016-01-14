@@ -1,0 +1,30 @@
+elasticsearch:
+    restart: always
+    image: reannz/elk_elasticsearch:${ELK_VERSION}
+    container_name: elasticsearch
+    env_file:
+        - global-env.env
+    volumes:
+        - /var/lib/docker/host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+
+logstash:
+    restart: always
+    image: reannz/elk_logstash:${ELK_VERSION}
+    container_name: logstash
+    env_file:
+        - global-env.env
+    ports:
+        - "5043:5043"
+    links:
+        - "elasticsearch:elasticsearch"
+
+kibana:
+    restart: always
+    image: reannz/elk_kibana:${ELK_VERSION}
+    container_name: kibana
+    env_file:
+        - global-env.env
+    ports:
+        - "5601:5601"
+    links:
+        - "elasticsearch:elasticsearch"
