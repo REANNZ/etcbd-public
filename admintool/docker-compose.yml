@@ -66,14 +66,14 @@ postgres:
     volumes:
         - /var/lib/docker/host-volumes/admintool-postgres-data:/var/lib/postgresql/data
 
-filebeat:
-    restart: always
-    image: reannz/admintool_filebeat:${ADMINTOOL_VERSION}
-    container_name: filebeat
-    env_file:
-        - admintool.env
-        - global-env.env
-    volumes:
-        - /var/lib/docker/host-volumes/admintool-filebeat-registry:/var/lib/filebeat
-    volumes_from:
-        - apache
+#filebeat:
+#    restart: always
+#    image: reannz/admintool_filebeat:${ADMINTOOL_VERSION}
+#    container_name: filebeat
+#    env_file:
+#        - admintool.env
+#        - global-env.env
+#    volumes:
+#        - /var/lib/docker/host-volumes/admintool-filebeat-registry:/var/lib/filebeat
+#    volumes_from:
+#        - apache
