@@ -1,0 +1,46 @@
+icingaweb:
+    restart: always
+    image: reannz/icinga_icingaweb:${ICINGA_VERSION}
+    container_name: icingaweb
+    env_file:
+        - icinga.env
+        - global-env.env
+    ports:
+        # temporarily use alt ports to avoid clash with admintool
+        - "8080:80"
+        - "8443:443"
+    volumes:
+        - /var/lib/docker/host-volumes/icingaweb-apache-certs:/etc/apache2/certs
+        - /var/lib/docker/host-volumes/icingaweb-apache-logs:/var/log/apache2
+        - /var/lib/docker/host-volumes/icingaweb-logs:/var/log/icingaweb2
+    volumes_from:
+        # we need to see the Command Transport file
+        - icinga
+    links:
+        - "postgres-icinga:postgres-icinga"
+
+icinga:
+    restart: always
+    image: reannz/icinga_icinga:${ICINGA_VERSION}
+    container_name: icinga
+    env_file:
+        - icinga.env
+        - global-env.env
+    volumes:
+        - /var/lib/docker/host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
+        - /var/lib/docker/host-volumes/icinga-cmd:/var/run/icinga2
+        - /var/lib/docker/host-volumes/icinga-lib:/var/lib/icinga2
+        - /var/lib/docker/host-volumes/icinga-logs:/var/log/icinga2
+    links:
+        - "postgres-icinga:postgres-icinga"
+
+
+postgres-icinga:
+    restart: always
+    container_name: postgres-icinga
+    image: reannz/icinga_postgres-icinga:${ICINGA_VERSION}
+    env_file:
+        - icinga.env
+        - global-env.env
+    volumes:
+        - /var/lib/docker/host-volumes/postgres-icinga-data:/var/lib/postgresql/data
