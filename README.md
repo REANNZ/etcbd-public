@@ -20,7 +20,7 @@ Install and configure Docker.  Please follow https://docs.docker.com/engine/inst
 
 On each of the VMs, start by cloning the git repository:
 
-    git clone https://github.com/REANNZ/etcbd
+    git clone https://github.com/REANNZ/etcbd-public
 
 # Deploying admintool
 
@@ -38,9 +38,9 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
-Use Docker-compose to build and start the containers:
+Use Docker-compose to start the containers:
 
-    export COMPOSE_FILE=docker-compose-admintool.yml COMPOSE_PROJECT_NAME=admintool
+    cd etcbd-public/admintool
     docker-compose build && docker-compose up -d
 
 Run the setup script:
@@ -61,9 +61,9 @@ Modify the ````icinga.env```` file with deployment parameters - override at leas
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
-Use Docker-compose to build and start the containers:
+Use Docker-compose to start the containers:
 
-    export COMPOSE_FILE=docker-compose-icinga.yml COMPOSE_PROJECT_NAME=icinga
+    cd etcbd-public/icinga
     docker-compose build && docker-compose up -d
 
 Run the setup script:
@@ -74,9 +74,9 @@ Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/icin
 
 # Deploying metrics tools
 
-Use Docker-compose to build and start the containers:
+Use Docker-compose to start the containers:
 
-    export COMPOSE_FILE=docker-compose-elk.yml COMPOSE_PROJECT_NAME=elk
+    cd etcbd-public/elk
     docker-compose build && docker-compose up -d
 
 
