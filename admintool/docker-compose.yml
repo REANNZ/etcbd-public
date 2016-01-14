@@ -1,0 +1,79 @@
+
+apache:
+    restart: always
+    image: reannz/admintool_apache:latest
+    container_name: apache
+    environment:
+        DJNRO_HOST: djnro
+        HTTPD_ARGS: -DDJNRO_STATIC -DAPACHE_LOGS_STDOUT
+    env_file:
+        - admintool.env
+        - global-env.env
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - /var/lib/docker/host-volumes/admintool-apache-certs:/usr/local/apache2/conf/external
+        - /var/lib/docker/host-volumes/admintool-apache-logs:/usr/local/apache2/logs
+    volumes_from:
+        #get access to the static files.
+        - djnro
+    links:
+        - "djnro:djnro"
+
+djnro:
+    restart: always
+    #build: ./djnro/
+    image: reannz/admintool_djnro:latest
+    container_name: djnro
+    #log_driver: syslog
+    environment:
+        DB_HOST: postgres
+    env_file:
+        - admintool.env
+        - global-env.env
+    volumes:
+        # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
+        # docker-compose rm -v
+        - /djnro/static
+        - /var/lib/docker/host-volumes/admintool-djnro-data:/djnro/data
+    links:
+        - "postgres:postgres"
+
+# djnro-cron depending opn djnro....
+djnro-scheduler:
+    restart: always
+    image: reannz/admintool_djnro:latest
+    container_name: djnro-scheduler
+    environment:
+        DB_HOST: postgres
+        KML_REFRESH_INTERVAL: 3600
+    env_file:
+        - admintool.env
+        - global-env.env
+    volumes_from:
+        #get access to the shared data directory
+        - djnro
+    command: bash -c 'while true ; do ./manage.py fetch_kml ; sleep $$KML_REFRESH_INTERVAL ; done'
+
+postgres:
+    restart: always
+    container_name: postgres
+    image: reannz/admintool_postgres:latest
+    env_file:
+        - admintool.env
+        - global-env.env
+    volumes:
+        - /var/lib/docker/host-volumes/admintool-postgres-data:/var/lib/postgresql/data
+
+filebeat:
+    restart: always
+    image: reannz/admintool_filebeat:latest
+    container_name: filebeat
+    env_file:
+        - admintool.env
+        - global-env.env
+    volumes:
+        - /var/lib/docker/host-volumes/admintool-filebeat-registry:/var/lib/filebeat
+    volumes_from:
+        - apache
