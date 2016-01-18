@@ -54,7 +54,7 @@ djnro-scheduler:
     volumes_from:
         #get access to the shared data directory
         - djnro
-    command: bash -c 'while true ; do ./manage.py fetch_kml ; sleep $$KML_REFRESH_INTERVAL ; done'
+    command: ./run-kml-refresh.sh
 
 postgres:
     restart: always
