@@ -9,21 +9,21 @@
 
   * Add the Docker package repository:
 
-            apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-            echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
-            apt-get update
+          apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+          echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
+          apt-get update
 
   * Make sure the extra kernel modules package (with the AUFS driver) is installed:
 
-            apt-get install linux-image-extra-$(uname -r)
+          apt-get install linux-image-extra-$(uname -r)
 
   * Install Docker Engine itself (this also auto-starts the daemon)
 
-            apt-get install docker-engine
+          apt-get install docker-engine
 
   * Add your user account to Docker group for direct access:
 
-            usermod -aG docker xeap
+          usermod -aG docker xeap
 
 # Install Docker Compose #
 
