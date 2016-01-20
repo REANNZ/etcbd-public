@@ -3,18 +3,20 @@
 
 ## Overall considerations
 
-The ancilliary tools package comprises three separate tools:
+The ancilliary tools package consists of three separate sets of tools:
 * admintool
 * metrics
 * monitoring
 
-Each of the tools is (at the moment) designed to run in an isolated environment - so on a separate docker host.
+Each of the tools is (at the moment) designed to run in an isolated environment.  They can be run on a single docker host by mapping each to a different port.  The configuration files provided here are designed this way:
 
-Please create three separate VMs with Docker, one for each of the tools.
+* Admintool runs on ports 80 and 443 (HTTP and HTTPS)
+* Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
+* Metrics runs on port 5601 (plain HTTP only)
 
 ## Preliminaries
 
-Install and configure Docker.  Please follow https://docs.docker.com/engine/installation/
+Install and configure Docker.  Please follow OUR local instructions based on https://docs.docker.com/engine/installation/
 
 ## Basic setup
 
@@ -41,7 +43,7 @@ This file is used by both the containers to populate runtime configuration and b
 Use Docker-compose to start the containers:
 
     cd etcbd-public/admintool
-    docker-compose build && docker-compose up -d
+    docker-compose up -d
 
 Run the setup script:
 
@@ -64,7 +66,7 @@ This file is used by both the containers to populate runtime configuration and b
 Use Docker-compose to start the containers:
 
     cd etcbd-public/icinga
-    docker-compose build && docker-compose up -d
+    docker-compose up -d
 
 Run the setup script:
 
@@ -77,7 +79,7 @@ Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/icin
 Use Docker-compose to start the containers:
 
     cd etcbd-public/elk
-    docker-compose build && docker-compose up -d
+    docker-compose up -d
 
 
 # Appendix: Google Login
