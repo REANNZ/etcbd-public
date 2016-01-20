@@ -67,6 +67,8 @@ Run the setup script:
 
     ./admintool-setup.sh admintool.env
 
+At this point, please become familiar with Docker-compose by following our [Introduction to Docker-compose](Docker-compose-intro.md):
+
 Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/admintool-apache-certs/server.{crt,key}
 
 
