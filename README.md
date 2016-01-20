@@ -1,7 +1,5 @@
 
-#  eduroam tools container-based deployment #
-
-## Overall considerations
+#  Eduroam tools container-based deployment: Overall considerations #
 
 The ancilliary tools package consists of three separate sets of tools:
 * admintool
@@ -14,11 +12,31 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 * Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
 * Metrics runs on port 5601 (plain HTTP only)
 
-## Preliminaries
+# Preliminaries - Docker
 
-Install and configure Docker.  Please follow OUR local instructions based on https://docs.docker.com/engine/installation/
+Install and configure Docker.  Please follow our [Docker setup instructions](Docker-setup.md).
 
-## Basic setup
+Please become familer with Docker by following our [Docker introduction](Docker-intro.md).
+
+# Preliminaries - Mail server
+
+Some of the tools (admintool and monitoring) will need to send outgoing email.  On these VMs, the easiest solution is to configure a local mail server (postfix) to deliver the outgoing emails.  You can then use the VM as the mail server when configuring the admintool and the monitoring tools.
+
+* Install postfix:
+
+        apt-get install postfix
+
+* When prompted, enter:
+
+        Mail host name: xeap-ws23.aarnet.edu.au
+
+* Edit ````/etc/postfix/main.cf```` and add ````172.17.0.0/16```` to ````mynetworks````
+* Reload postfix:
+
+        service postfix reload
+
+
+# Eduroam ancillary tools: Basic setup
 
 On each of the VMs, start by cloning the git repository:
 
