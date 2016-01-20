@@ -17,36 +17,36 @@ Once you customize the variables (the env_file makes them separate from the code
 
 * Start everything up (interactively) and watch the console:
 
-         docker-compose up
+        docker-compose up
 
 * Cancel this session with Ctrl-C
 
 * Start again in the background (detached):
 
-         docker-compose up -d
+        docker-compose up -d
 
 * Watch the logs with:
 
-         docker-compose logs
+        docker-compose logs
 
 (and again escape with Ctrl-C - this time just detaching)
 
 * Stop and remove the containers:
 
-         docker-compose stop
-         docker-compose rm -f -v
+        docker-compose stop
+        docker-compose rm -f -v
 
 * Up again:
 
-         docker-compose up
+        docker-compose up
 
 * Fetch updated images:
 
-         docker-compose pull
+        docker-compose pull
 
 * Update (re-create) the running containers:
 
-         docker-compose up
+        docker-compose up
 
 Note: ````docker-compose up```` updates (re-creates) the container whenever anything changes, otherwise just make sure the container is started. So if a new image is ready (pulled) or the environment variables file has changed, it would get re-created.
 

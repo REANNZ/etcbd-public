@@ -9,41 +9,41 @@ Docker containers run off container images and are managed by the Docker daemon 
 
 * Run a simple interactive container with Debian Linux: 
 
-         docker run -it --name my_debian debian:jessie bash
+        docker run -it --name my_debian debian:jessie bash
 
   * When exiting the shell running in the container, the container stops, but stays on the system (see below)
 
 * Start an Apache web server as a detached container (and map port 8080 on the Docker host to port 80 on the container):
 
-         docker run -d --name my_apache -p 8080:80 httpd:2.4
+        docker run -d --name my_apache -p 8080:80 httpd:2.4
 
   * Try accessing the apache container:
 
-           wget -q http://localhost:8888/ -O -
+          wget -q http://localhost:8888/ -O -
 
 * Check the list of running containers:
 
-         docker ps
+        docker ps
 
 * Check the list of all containers:
 
-         docker ps -a
+        docker ps -a
 
 * Stop the Apache container:
 
-         docker stop my_apache
+        docker stop my_apache
 
 * Remove both of the containers with:
 
-         docker rm -v my_debian my_apache
+        docker rm -v my_debian my_apache
 
 * See list of locally available Docker images:
 
-         docker images
+        docker images
 
 * See list of ALL locally available Docker images (including intermediate layers):
 
-         docker images -a
+        docker images -a
 
 * Remove the local images used above:
 
