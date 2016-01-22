@@ -1,4 +1,8 @@
 
+NOTE: For the XeAP workshop at APAN41, please follow instructions in [Lab.md](Lab.md)
+
+The installation instructions here are ment for deployment at your institution - the ones in [Lab.md](Lab.md) are targeted for the lab VMs.
+
 #  Eduroam tools container-based deployment: Overall considerations #
 
 The ancilliary tools package consists of three separate sets of tools:
@@ -37,6 +41,10 @@ Some of the tools (admintool and monitoring) will need to send outgoing email.  
 
 
 # Eduroam ancillary tools: Basic setup
+
+NOTE: For the XeAP workshop at APAN41, please follow instructions in [Lab.md](Lab.md)
+
+The installation instructions here are ment for deployment at your institution - the ones in [Lab.md](Lab.md) are targeted for the lab VMs.
 
 On each of the VMs, start by cloning the git repository:
 
