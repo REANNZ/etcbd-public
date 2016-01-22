@@ -66,7 +66,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
 * ````REALM_EXISTING_DATA_URL```` - leave in to import REANNZ data, set to blank to start with an empty database
  
-And in global-env.env, customize system-level ````TZ```` and ````LANG```` as preferred.
+And in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred.
 
 For now, leave out ````GOOGLE_SECRET```` ````GOOGLE_KEY```` - these will be configured in a later exercises to enable login.
 
@@ -104,7 +104,7 @@ The metrics tools are using the ELK stack (ElasticSearch, Logstash, Kibana) - an
 
 The only configuration parameters is the system-wide global.env - which can be customized the same way as done for the admintool.
 
-Use Docker-compose to start the containers (copying over global.env from admintool):
+Use Docker-compose to start the containers (copying over ````global-env.env```` from admintool):
 
     cd etcbd-public/elk
     cp ../admintoool/global-env.env .
@@ -158,7 +158,7 @@ Modify the ````icinga.env```` file with deployment parameters - override at leas
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
  
-Additionally, in global-env.env, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
+Additionally, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
 
     cd etcbd-public/icinga
     cp ../admintoool/global-env.env .
