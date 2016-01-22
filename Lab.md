@@ -53,6 +53,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 
 * Pick your own admin password: ````ADMIN_PASSWORD````
 * Pick internal DB passwords: ````DB_PASSWORD````, ````POSTGRES_PASSWORD````
+  * Generate these with: ````openssl rand -base64 12````
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.  Enter your VM hostname: ````xeap-wsNN.aarnet.edu.au````
 * ````LOGSTASH_HOST```` is where your metrics will run - the same VM
 * ````EMAIL_HOST```` - configure to use your VM.  Leave other ````EMAIL_*```` settings unset.
@@ -140,6 +141,7 @@ Modify the ````icinga.env```` file with deployment parameters - override at leas
 
 * Pick your own admin password: ````ICINGAWEB2_ADMIN_PASSWORD````
 * Pick internal DB passwords: ````ICINGA_DB_PASSWORD````, ````ICINGAWEB2_DB_PASSWORD````, ````POSTGRES_PASSWORD````
+  * Generate these with: ````openssl rand -base64 12````
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.  Enter your VM hostname: ````xeap-wsNN.aarnet.edu.au````
 * ````EMAIL_HOST```` - configure to use your VM.  Leave other ````EMAIL_*```` settings unset.
 * ````EMAIL_FROM```` - From: address in outgoing emails.  Pick your own.
