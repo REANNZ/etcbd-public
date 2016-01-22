@@ -293,10 +293,50 @@ You can now re-deploy it to run with Docker-compose and link into the metrics to
 
 # Extra Credit Bonus Question: Commit your local config changes (except passwords) into git
 
-TODO
+We use git for versioning all of our code - container image source code, deployment scripts, even this documentation.  You can version configuration files too.
+
+The way you fetched the deployment files, you cloned a git repository (created a local copy).
+
+Navigate into ````~/etcbc-public```` and explore:
+
+    git status
+    git diff
+
+You can now commit your config file changes into your local copy of the repository:
+(But do not add the parts that contain passwords...).
+
+    git add -p
+    git commit
+
+And you can now review the status after the change
+
+    git status
+    git log
+    git diff HEAD~1..HEAD
+
+You can find git command reference at https://git-scm.com/docs
 
 
 # Extra Credit Bonus Question: Clone our public repo on github and push your changes there
 
-TODO
+We use github for storing our git repositories and for collaborating on projects.
+
+On github, you can Fork a repository - create a copy hosted on Github and linked with the original repository.
+
+* Navigate to https://github.com/REANNZ/etcbd-public
+* Log into your github account (or create one - it's free!)
+* Fork the repository into your account
+
+You can now:
+* Get the link to your repository: something like ````https://github.com/<your-username>/etcbc-public.git````
+* Add this as an additional remote repository into your local copy on the lab VM:
+
+        git remote add mycopy https://github.com/<your-username>/etcbc-public.git
+
+
+* And you can now push the ````master```` branch (trunk of the repository) into your repository:
+
+        git push mycopy master
+
+* Now your configuration is versioned and kept in the cloud - you can clone your own copy later.
 
