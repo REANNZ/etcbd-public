@@ -13,7 +13,24 @@ Please become familer with Docker by following our [Docker introduction](Docker-
 
 # Sysadmin 101 #
 
-On these VMs, you will need to configure a mail server: please follow our [mail server configuration instructions](README.md#preliminaries---mail-server) and returh here.
+Some of the tools (admintool and monitoring) will need to send outgoing email.  On these VMs, the easiest solution is to configure a local mail server (postfix) to deliver the outgoing emails.  You can then use the VM as the mail server when configuring the admintool and the monitoring tools.
+
+Run the following commands as root - e.g., via ````sudo -s````:
+
+* Install postfix:
+
+        apt-get install postfix
+
+* When prompted, enter:
+
+        Mail host name: xeap-ws23.aarnet.edu.au
+
+* Edit ````/etc/postfix/main.cf```` and add ````172.17.0.0/16```` to ````mynetworks````
+* Reload postfix:
+
+        service postfix reload
+
+
 
 TODO: set VM hostname
 

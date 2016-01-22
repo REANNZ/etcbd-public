@@ -24,21 +24,7 @@ Please become familer with Docker by following our [Docker introduction](Docker-
 
 # Preliminaries - Mail server
 
-Some of the tools (admintool and monitoring) will need to send outgoing email.  On these VMs, the easiest solution is to configure a local mail server (postfix) to deliver the outgoing emails.  You can then use the VM as the mail server when configuring the admintool and the monitoring tools.
-
-* Install postfix:
-
-        apt-get install postfix
-
-* When prompted, enter:
-
-        Mail host name: xeap-ws23.aarnet.edu.au
-
-* Edit ````/etc/postfix/main.cf```` and add ````172.17.0.0/16```` to ````mynetworks````
-* Reload postfix:
-
-        service postfix reload
-
+Some of the tools (admintool and monitoring) will need to send outgoing email.  Please make sure you have the details of an SMTP ready - either one provided by your systems administrator, or one running on the local system.
 
 # Eduroam ancillary tools: Basic setup
 
