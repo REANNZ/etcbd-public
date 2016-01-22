@@ -118,7 +118,7 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 * Create a new project
 * From the main menu, select the API Manager
 * Select Credentials
-* Configure the OAuth consent screen with how the application shouldb be described to the user (at least, set Product name)
+* Configure the OAuth consent screen with how the application should be described to the user (at least, set Product name)
 * Create a new Credential as an OAuth Client ID for a web application
 * Add the Authorized redirect URI for your application - the form is (substitute your real hostname here):
 
