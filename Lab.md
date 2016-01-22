@@ -5,11 +5,13 @@ In these exercises, you should develop familiarity with Docker, Docker-compose, 
 
 You can see more about the tools in the main [README.md](README.md) - but please return here for instructions.
 
+
 # Docker 101 #
 
 Install and configure Docker.  Please follow our [Docker setup instructions](Docker-setup.md).
 
 Please become familer with Docker by following our [Docker introduction](Docker-intro.md).
+
 
 # Sysadmin 101 #
 
@@ -38,7 +40,6 @@ Change the system hostname from the default template ````ansible````:
 
         hostname --file /etc/hostname
 
-# Admintool - basic installation #
 
 # Eduroam ancillary tools: Basic setup
 
@@ -46,6 +47,7 @@ Start by cloning the git repository with deployment packages for all of the anci
 
     git clone https://github.com/REANNZ/etcbd-public
     cd etcbd-public/admintool
+
 
 # Deploying admintool - first iteration
 
@@ -79,14 +81,21 @@ And in another session, run the setup script:
     cd etcbd-public/admintool
     ./admintool-setup.sh admintool.env
 
-# Admintool lab exercise: explore admintool and add your own organization.
 
-Navigate to http://xeap-wsNN.aarnet.edu.au - you will need to accept the SSL certificate warning.
+# Admintool lab exercise: explore admintool and add your own institution.
+
+* Navigate to http://xeap-wsNN.aarnet.edu.au/ - you will need to accept the SSL certificate warning.
+  * This gives you the user view.
+  * Explore.
+
+* Navigate to https://xeap-wsNN.aarnet.edu.au/admin/ and log in with the admin username and password as selected above.
+  * This gives you the NRO admin view.
+  * As the NRO operator, create your own institution.
+
 
 # Docker-compose 101 
 
 At this point, please become familiar with Docker-compose by following our [Introduction to Docker-compose](Docker-compose-intro.md):
-
 
 
 # Deploying metrics tools
@@ -164,6 +173,7 @@ And in another session, run the setup script:
     cd etcbd-public/icinga
     ./icinga-setup.sh icinga.env
 
+
 # Monitoring the institutional radius server
 
 The monitoring tools (Icinga) come with functionality for monitoring a radius server.
@@ -175,6 +185,7 @@ After updating this file, restart the containers with:
     cd etcbd-public/icinga
     docker-compose stop
     docker-compose up -d
+
 
 # Confirm all services report OK in icingaweb #
 
@@ -210,17 +221,29 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
         docker-compose stop
         docker-compose up -d
 
+
 # Bonus Question: Become an institutional administrator in Admintool
 
-TODO
+* Open the admintool in a browser: https://xeap-wsNN.aarnet.edu.au/
+
+* Navigate to Manage => Google and log in with your Google account.
+
+* Select an institution and apply to become an administrator.
+
+* Check your email and as the NRO admin, approve your own request.
+
+* Now revisit the admin tool and through the manage menu, manage your own institution.
+
 
 # Bonus Question: Connect radius server to ELK (switch to docker-compose)
 
 TODO
 
+
 # Extra Credit Bonus Question: Commit your local config changes (except passwords) into git
 
 TODO
+
 
 # Extra Credit Bonus Question: Clone our public repo on github and push your changes there
 
