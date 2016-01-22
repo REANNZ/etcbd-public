@@ -31,8 +31,12 @@ Run the following commands as root - e.g., via ````sudo -s````:
         service postfix reload
 
 
+Change the system hostname from the default template ````ansible````:
+* Edit ````/etc/hostname```` and change it to ````xeap-wsNN.aarnet.edu.au````
+* Edit ````/etc/hosts```` and also replace ````ansible```` with your VM's hostname.
+* Apply the change: run:
 
-TODO: set VM hostname
+        hostname --file /etc/hostname
 
 # Admintool - basic installation #
 
