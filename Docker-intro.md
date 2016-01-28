@@ -19,7 +19,7 @@ Docker containers run off container images and are managed by the Docker daemon 
 
   * Try accessing the apache container:
 
-          wget -q http://localhost:8888/ -O -
+          wget -q http://localhost:8080/ -O -
 
 * Check the list of running containers:
 
