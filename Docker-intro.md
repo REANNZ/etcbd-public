@@ -47,7 +47,7 @@ Docker containers run off container images and are managed by the Docker daemon 
 
 * Remove the local images used above:
 
-      docker rmi httpd:2.4 debian:jessie
+        docker rmi httpd:2.4 debian:jessie
 
 
 Please see https://github.com/wsargent/docker-cheat-sheet for more examples.
