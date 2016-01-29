@@ -205,7 +205,7 @@ Now explore the monitoring tools at https://xeap-wsNN.aarnet.edu.au:8443/ (and l
 
 * Please test sending alerts works all fine - send a test message for one of the services.
 
-* To enable status in your freeradius IRS (manual install), add the following to ````/etc/raddb/sites-available/default```` (in authorize section): 
+* To enable status in your freeradius IRS (manual install), add the following to ````/etc/freeradius/sites-available/eduroam```` (in authorize section): 
 
         # respond to the Status-Server request.
         Autz-Type Status-Server {
