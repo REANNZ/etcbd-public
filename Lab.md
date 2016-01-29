@@ -133,7 +133,7 @@ The shipping of logs is done by filebeat - which has been prepared as a containe
 
 * Tell docker-compose to pull the image for the filebeat container
 
-         cd ~/etcbd-public
+         cd ~/etcbd-public/admintool
          docker-compose pull
 
 * Use docker-compose to start the filebeat container:
