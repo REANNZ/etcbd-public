@@ -1,6 +1,6 @@
 icingaweb:
     restart: always
-    image: reannz/icinga_icingaweb:${ICINGA_VERSION}
+    image: reannz/icinga_icingaweb:latest
     container_name: icingaweb
     env_file:
         - icinga.env
@@ -21,7 +21,7 @@ icingaweb:
 
 icinga:
     restart: always
-    image: reannz/icinga_icinga:${ICINGA_VERSION}
+    image: reannz/icinga_icinga:latest
     container_name: icinga
     env_file:
         - icinga.env
@@ -38,7 +38,7 @@ icinga:
 postgres-icinga:
     restart: always
     container_name: postgres-icinga
-    image: reannz/icinga_postgres-icinga:${ICINGA_VERSION}
+    image: reannz/icinga_postgres-icinga:latest
     env_file:
         - icinga.env
         - global-env.env

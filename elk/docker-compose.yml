@@ -1,6 +1,6 @@
 elasticsearch:
     restart: always
-    image: reannz/elk_elasticsearch:${ELK_VERSION}
+    image: reannz/elk_elasticsearch:latest
     container_name: elasticsearch
     env_file:
         - global-env.env
@@ -9,7 +9,7 @@ elasticsearch:
 
 logstash:
     restart: always
-    image: reannz/elk_logstash:${ELK_VERSION}
+    image: reannz/elk_logstash:latest
     container_name: logstash
     env_file:
         - global-env.env
@@ -20,7 +20,7 @@ logstash:
 
 kibana:
     restart: always
-    image: reannz/elk_kibana:${ELK_VERSION}
+    image: reannz/elk_kibana:latest
     container_name: kibana
     env_file:
         - global-env.env

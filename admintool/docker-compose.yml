@@ -1,7 +1,7 @@
 
 apache:
     restart: always
-    image: reannz/admintool_apache:${ADMINTOOL_VERSION}
+    image: reannz/admintool_apache:latest
     container_name: apache
     environment:
         DJNRO_HOST: djnro
@@ -24,7 +24,7 @@ apache:
 djnro:
     restart: always
     #build: ./djnro/
-    image: reannz/admintool_djnro:${ADMINTOOL_VERSION}
+    image: reannz/admintool_djnro:latest
     container_name: djnro
     #log_driver: syslog
     environment:
@@ -43,7 +43,7 @@ djnro:
 # djnro-cron depending opn djnro....
 djnro-scheduler:
     restart: always
-    image: reannz/admintool_djnro:${ADMINTOOL_VERSION}
+    image: reannz/admintool_djnro:latest
     container_name: djnro-scheduler
     environment:
         DB_HOST: postgres
@@ -59,7 +59,7 @@ djnro-scheduler:
 postgres:
     restart: always
     container_name: postgres
-    image: reannz/admintool_postgres:${ADMINTOOL_VERSION}
+    image: reannz/admintool_postgres:latest
     env_file:
         - admintool.env
         - global-env.env
@@ -68,7 +68,7 @@ postgres:
 
 #filebeat:
 #    restart: always
-#    image: reannz/admintool_filebeat:${ADMINTOOL_VERSION}
+#    image: reannz/admintool_filebeat:latest
 #    container_name: filebeat
 #    env_file:
 #        - admintool.env
