@@ -53,6 +53,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
 * ````REALM_EXISTING_DATA_URL````: In a real deployment, set this to blank (````REALM_EXISTING_DATA_URL=````) to start with an empty database.  Leaving it with the value provided would import REANNZ data - suitable for a test environment.
 * ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring these settings)
+* ````ADMINTOOL_DEBUG````: for troubleshooting, uncomment the existing line: ````ADMINTOOL_DEBUG=True```` - but remember to comment it out again (or change to False or blank) after done with the troubleshooting.
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
