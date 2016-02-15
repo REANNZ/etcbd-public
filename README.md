@@ -40,17 +40,23 @@ On each of the VMs, start by cloning the git repository:
 
 Modify the ````admintool.env```` file with deployment parameters - override at least the following values:
 
-* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as
-* ````LOGSTASH_HOST````: the hostname the metrics tools will be visible as
-* ````ADMIN_EMAIL````: where to send notifications
+* Pick your own admin password: ````ADMIN_PASSWORD````
+* Pick internal DB passwords: ````DB_PASSWORD````, ````POSTGRES_PASSWORD````
+  * Generate these with: ````openssl rand -base64 12````
+* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.
+* ````LOGSTASH_HOST````: the hostname the metrics tools will be visible as.
 * ````EMAIL_*```` settings to match the local environment (server name, port, TLS and authentication settings)
-* ````SERVER_EMAIL````: outgoing email address to use in notifications
-* ````ALL PASSWORDS```` (administrator, db connection and postgres master password)
-* ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring this one)
-* Configure other prameters to match the deployment (REALM_*, TIME_ZONE, MAP_CENTER_*)
-  * This includes the optional import of existing data (default imports REANNZ data)
+* ````SERVER_EMAIL````: From: email address to use in outgoing notifications.
+* ````ADMIN_EMAIL````: where to send NRO admin notifications.
+* ````REALM_COUNTRY_CODE```` / ````REALM_COUNTRY_NAME```` - your eduroam country
+* ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
+* ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
+* ````REALM_EXISTING_DATA_URL````: In a real deployment, set this to blank (````REALM_EXISTING_DATA_URL=````) to start with an empty database.  Leaving it with the value provided would import REANNZ data - suitable for a test environment.
+* ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring these settings)
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
+
+And in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred.
 
 Use Docker-compose to start the containers:
 
@@ -70,12 +76,20 @@ Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/admi
 
 Modify the ````icinga.env```` file with deployment parameters - override at least the following values:
 
+* Pick your own admin password: ````ICINGAWEB2_ADMIN_PASSWORD````
+* Pick internal DB passwords: ````ICINGA_DB_PASSWORD````, ````ICINGAWEB2_DB_PASSWORD````, ````POSTGRES_PASSWORD````
+  * Generate these with: ````openssl rand -base64 12````
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as
 * ````ICINGA_ADMIN_EMAIL````: where to send notifications
 * ````EMAIL_*```` settings to match the local environment (server name, port, TLS and authentication settings)
-* ALL PASSWORDS (administrator, db connection and postgres master password)
+* ````EMAIL_FROM```` - From: address to use in outgoing notification emails.
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
+
+Additionally, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
+
+    cd etcbd-public/icinga
+    cp ../admintoool/global-env.env .
 
 Use Docker-compose to start the containers:
 
@@ -90,9 +104,10 @@ Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/icin
 
 # Deploying metrics tools
 
-Use Docker-compose to start the containers:
+Use Docker-compose to start the containers (copying over ````global-env.env```` from admintool):
 
     cd etcbd-public/elk
+    cp ../admintoool/global-env.env .
     docker-compose up -d
 
 
