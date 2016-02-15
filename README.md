@@ -40,13 +40,13 @@ On each of the VMs, start by cloning the git repository:
 
 Modify the ````admintool.env```` file with deployment parameters - override at least the following values:
 
-* SITE_PUBLIC_HOSTNAME: the hostname this site will be visible as
-* LOGSTASH_HOST: the hostname the metrics tools will be visible as
-* ADMIN_EMAIL: where to send notifications
-* EMAIL_* settings to match the local environment (server name, port, TLS and authentication settings)
-* SERVER_EMAIL: outgoing email address to use in notifications
-* ALL PASSWORDS (administrator, db connection and postgres master password)
-* GOOGLE_KEY/GOOGLE_SECRET - provide Key + corresponding secret for an API credential (see below on configuring this one)
+* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as
+* ````LOGSTASH_HOST````: the hostname the metrics tools will be visible as
+* ````ADMIN_EMAIL````: where to send notifications
+* ````EMAIL_*```` settings to match the local environment (server name, port, TLS and authentication settings)
+* ````SERVER_EMAIL````: outgoing email address to use in notifications
+* ````ALL PASSWORDS```` (administrator, db connection and postgres master password)
+* ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring this one)
 * Configure other prameters to match the deployment (REALM_*, TIME_ZONE, MAP_CENTER_*)
   * This includes the optional import of existing data (default imports REANNZ data)
 
@@ -70,9 +70,9 @@ Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/admi
 
 Modify the ````icinga.env```` file with deployment parameters - override at least the following values:
 
-* SITE_PUBLIC_HOSTNAME: the hostname this site will be visible as
-* ICINGA_ADMIN_EMAIL: where to send notifications
-* EMAIL_* settings to match the local environment (server name, port, TLS and authentication settings)
+* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as
+* ````ICINGA_ADMIN_EMAIL````: where to send notifications
+* ````EMAIL_*```` settings to match the local environment (server name, port, TLS and authentication settings)
 * ALL PASSWORDS (administrator, db connection and postgres master password)
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
