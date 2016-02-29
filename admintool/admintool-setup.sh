@@ -20,15 +20,13 @@ docker exec postgres gosu postgres psql --command="create role $DB_USER with log
 docker exec postgres gosu postgres psql --command="create database $DB_NAME with owner $DB_USER;"
 
 # Initialize database on the Django side - and create super user
-docker exec -i djnro /envwrap.sh ./manage.py syncdb <<-EOF
-	yes
-	$ADMIN_USERNAME
-	$ADMIN_EMAIL
+docker exec djnro /envwrap.sh ./manage.py syncdb --noinput
+docker exec djnro /envwrap.sh ./manage.py migrate
+docker exec djnro /envwrap.sh ./manage.py createsuperuser --noinput --username "$ADMIN_USERNAME" --email "$ADMIN_EMAIL"
+docker exec -i djnro /envwrap.sh ./manage.py changepassword "$ADMIN_USERNAME" <<-EOF
 	$ADMIN_PASSWORD
 	$ADMIN_PASSWORD
 EOF
-
-docker exec djnro /envwrap.sh ./manage.py migrate
 
 # load django fixtures - initial data
 docker exec djnro /envwrap.sh ./manage.py loaddata initial_data/fixtures_manual.xml
