@@ -1,8 +1,4 @@
 
-NOTE: For the XeAP workshop at APAN41, please follow instructions in [Lab.md](Lab.md)
-
-The installation instructions here are ment for deployment at your institution - the ones in [Lab.md](Lab.md) are targeted for the lab VMs.
-
 #  Eduroam tools container-based deployment: Overall considerations #
 
 The ancilliary tools package consists of three separate sets of tools:
@@ -77,9 +73,9 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
         ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_KEY=93randomClientId
         ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_SECRET=ev3nM0r3S3cr3tK3y
 
-This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
+Note this file (````admintool.env````) is used both by containers to populate runtime configuration and by a one-off script to populate the database.
 
-And in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred.
+As an additional step, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as desired.
 
 Use Docker-compose to start the containers:
 
