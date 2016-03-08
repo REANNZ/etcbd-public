@@ -56,6 +56,22 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````ADMINTOOL_SECRET_KEY````: this should be a long and random string used internall by the admintool.
   * Please generate this value with: ````openssl rand -base64 48````
 * ````ADMINTOOL_DEBUG````: for troubleshooting, uncomment the existing line: ````ADMINTOOL_DEBUG=True```` - but remember to comment it out again (or change to False or blank) after done with the troubleshooting.
+* ````ADMINTOOL_LOGIN_METHODS````: enter a space-separated list of login methods to enable.
+  * Choose from:
+    * shibboleth: SAML Login with Shibboleth SP via an identity federation.  Not supported yet.
+    * locallogin: Local accounts on the admin tool instance.
+    * google-oauth2: Login with a Google account.  Only works for applications registered with Google - see below on enabling Google login.
+    * google-plus: Login with a Google account via Google Plus.  May be used as an alternative to Google OAuth2.  Also only works for applications registered with Google - see below on enabling Google login.
+    * yahoo: Login with a Yahoo account.  No registration needed.
+    * amazon: Login with an Amazon account.  Registration needed.
+    * docker: Login with a Docker account.  Registration needed.
+    * dropbox-oauth2: Login with a Dropbox account.  Registration needed.
+    * facebook: Login with a Facebook account.  Registration needed.
+    * launchpad: Login with an UbuntuOne/Launchpad account.  No registration needed.
+    * linkedin-oatuh2: Login with a LinkedIn account.  Registration needed.
+    * meetup: Login with a MeetUp account.  Registration needed.
+    * twitter: Login with a Twitter account.  Registration needed.
+  * Please note that many of these login methods require registration with the target site, and also need configuring the API key and secret received as part of the registration.  Please see the [Python Social Auth Backends documentation](https://python-social-auth.readthedocs.org/en/latest/backends/) for the exact settings required.
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
