@@ -3,6 +3,13 @@
 
 In these exercises, you should develop familiarity with Docker, Docker-compose, and with the three key Eduroam Ancillary Services: admintool, metrics and monitoring.  You should learn how to customize and deploy these tools with Docker.  And you should get to a running configuration of these tools.
 
+Please note: these instructions were meant only to be used as part of the eduroam tutorial at APAN41.
+
+For production deployment of the eduroam tools, please follow the instructions
+in the main [README.md](README.md) file - these instructions are targeted at
+production deployment and are kept up to date with the development of the
+eduroam tools.
+
 #  Eduroam tools container-based deployment: Overall considerations #
 
 The ancilliary tools package consists of three separate sets of tools:
