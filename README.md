@@ -72,6 +72,10 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
     * meetup: Login with a MeetUp account.  Registration needed.
     * twitter: Login with a Twitter account.  Registration needed.
   * Please note that many of these login methods require registration with the target site, and also need configuring the API key and secret received as part of the registration.  Please see the [Python Social Auth Backends documentation](https://python-social-auth.readthedocs.org/en/latest/backends/) for the exact settings required.
+* Additional settings: it is also possible to pass any arbitrary settings for the Admintool (or its underlying module) by prefixing the setting with ````ADMINTOOL_EXTRA_SETTINGS_````.  This would be relevant for passing configuration entries to the login methods configured above - especially SECRET and KEY settings for login methods requiring these.  Example: to pass settings required by [Twitter](https://python-social-auth.readthedocs.org/en/latest/backends/twitter.html), add them as:
+
+        ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_KEY=93randomClientId
+        ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_SECRET=ev3nM0r3S3cr3tK3y
 
 This file is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
