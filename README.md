@@ -12,6 +12,17 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 * Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
 * Metrics runs on port 5601 (plain HTTP only)
 
+# ChangeLog
+
+Changes to this document since the workshop at APAN41 in Manilla, January 2016.
+
+* 2016-03-08: Added documentation for passing arbitrary configuration options to Admintool.
+* 2016-03-08: Added configurable login methods for Admintool.
+* 2016-02-25: Added ADMINTOOL_SECRET_KEY environment variable.
+* 2016-02-15: Added ADMINTOOL_DEBUG environment variable.
+* 2016-02-15: Clarified deployment instructions.
+* 2016-02-15: Added missing instructions to enable Google+API.
+
 # Preliminaries - Docker
 
 Install and configure Docker.  Please follow our [Docker setup instructions](Docker-setup.md).
