@@ -16,6 +16,8 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-01: Added Update instructions.
+* 2016-04-01: Added this ChangeLog section.
 * 2016-03-08: Added documentation for passing arbitrary configuration options to Admintool.
 * 2016-03-08: Added configurable login methods for Admintool.
 * 2016-02-25: Added ADMINTOOL_SECRET_KEY environment variable.
@@ -140,6 +142,91 @@ Use Docker-compose to start the containers (copying over ````global-env.env```` 
     cp ../admintoool/global-env.env .
     docker-compose up -d
 
+
+# Updating deployed tools
+
+Over time, these tools will receive updates - as upstream software releases new
+version, as new features are developed, or as bugs and security issues are
+fixed.
+
+The updates would target both the container images and the files driving the
+images contained in these repositories.
+
+It is essential to install these updates to continue operating these tools in a reliable and secure manner.
+
+## Updating Docker files
+
+The first step is to pull updates to the Docker (and docker-compose) files driving the tools - i.e., this repository:
+
+    cd etcbd-public
+    git fetch --verbose --all
+    git merge origin/master
+
+If the above commands succeed, this part is completed.  Git may fail with an error message like:
+
+````
+error: Your local changes to the following files would be overwritten by merge:
+        admintool/admintool.env
+        Please, commit your changes or stash them before you can merge.
+        Aborting
+````
+
+In that case:
+
+* Save your changes to the file(s) affected into the git "stash" with: `git stash save`
+* Now merge the updates to the original (unmodified) files: `git merge origin/master`
+* Now bring back the changes from the stash: `git stash pop`
+* Git tries to merge the local modifications into the updated files.
+* If this succeeds without encountering any conflicts, this step is done.
+* If git reports conflicts - like:
+
+        $ git stash pop
+        Auto-merging admintool/admintool.env
+        CONFLICT (content): Merge conflict in admintool/admintool.env
+
+* It is necessary to manually resolve the conflict.  Edit the file and manually merge the updates (typically adding new settings) with local modifications (customizations of existing settings).  The file would contain fragments from both versions, separated by clearly visible demarcation lines:
+
+        <<<<<<< Updated upstream
+        #ADMINTOOL_DEBUG=True
+        ADMINTOOL_LOGIN_METHODS=google-oauth2 launchpad yahoo
+        # choose from:
+        #    shibboleth, locallogin, google-oauth2, google-plus, yahoo, amazon,
+        #    docker, dropbox-oauth2, facebook, launchpad, linkedin-oauth2,
+        #    meetup, twitter
+
+        # Add any additional settings by prefixing them with ADMINTOOL_EXTRA_SETTINGS_
+        # Example:
+        #ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_KEY=93randomClientId
+        #ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_SECRET=ev3nM0r3S3cr3tK3y
+        =======
+        ADMINTOOL_DEBUG=True
+        >>>>>>> Stashed changes
+
+* As part of resolving the conflict, remove also the demarcation lines.  In this example, the ADMINTOOL_DEBUG setting was modified (uncommented) in the local file, while right on the following line, new settings were added in the upstream.  The correct resolution of thi confict is:
+
+        ADMINTOOL_DEBUG=True
+        ADMINTOOL_LOGIN_METHODS=google-oauth2 launchpad yahoo
+        # choose from:
+        #    shibboleth, locallogin, google-oauth2, google-plus, yahoo, amazon,
+        #    docker, dropbox-oauth2, facebook, launchpad, linkedin-oauth2,
+        #    meetup, twitter
+
+        # Add any additional settings by prefixing them with ADMINTOOL_EXTRA_SETTINGS_
+        # Example:
+        #ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_KEY=93randomClientId
+        #ADMINTOOL_EXTRA_SETTINGS_SOCIAL_AUTH_TWITTER_SECRET=ev3nM0r3S3cr3tK3y
+
+* After editing the file, indicate to Git the conflict has been resolved: `git reset`
+* And dropped the stashed copy of the local modifications (git kept it because it ran into the conflict): `git stash drop`
+
+## Updating docker containers
+
+After updating the files driving the tools:
+
+* Go into the respective directory (repeat for all of the three tools the updates apply to): `cd admintool`
+* Pull the updated container images: `docker-compose pull`
+* Restart the containers from updated images: `docker-compose up -d`
+* Optionally, watch the logs (leave with Ctrl-C): `docker-compose logs`
 
 # Appendix: Google Login
 
