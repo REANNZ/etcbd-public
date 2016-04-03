@@ -5,7 +5,7 @@ apache:
     container_name: apache
     environment:
         DJNRO_HOST: djnro
-        HTTPD_ARGS: -DDJNRO_STATIC -DAPACHE_LOGS_STDOUT
+        HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     env_file:
         - admintool.env
         - global-env.env
@@ -15,9 +15,6 @@ apache:
     volumes:
         - /var/lib/docker/host-volumes/admintool-apache-certs:/usr/local/apache2/conf/external
         - /var/lib/docker/host-volumes/admintool-apache-logs:/usr/local/apache2/logs
-    volumes_from:
-        #get access to the static files.
-        - djnro
     links:
         - "djnro:djnro"
 
@@ -33,9 +30,6 @@ djnro:
         - admintool.env
         - global-env.env
     volumes:
-        # NOTE: this is a transient volume (for sharing) - needs to be deleted at shutdown with
-        # docker-compose rm -v
-        - /djnro/static
         - /var/lib/docker/host-volumes/admintool-djnro-data:/djnro/data
     links:
         - "postgres:postgres"
