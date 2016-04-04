@@ -29,8 +29,8 @@
 
 Official Docker Compose Install manual at https://docs.docker.com/compose/install/ redirects Ubuntu users to https://github.com/docker/compose/releases ...  where the command to run is:
 
-    curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m`
     chmod +x /usr/local/bin/docker-compose
 
-(The URL being fetched is actually https://github.com/docker/compose/releases/download/1.5.2/docker-compose-Linux-x86_64 and it fetches an ELF-64 binary)
+(The URL being fetched is actually https://github.com/docker/compose/releases/download/1.6.2/docker-compose-Linux-x86_64 and it fetches an ELF-64 binary)
 
