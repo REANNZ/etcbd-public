@@ -38,6 +38,7 @@ services:
     container_name: apache-elk
     environment:
         KIBANA_URL: http://kibana:5601/
+        HTTPS_PORT: 9443
         HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     env_file:
         - elk.env

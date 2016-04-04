@@ -5,6 +5,8 @@ services:
     restart: always
     image: reannz/icinga_icingaweb:latest
     container_name: icingaweb
+    environment:
+        HTTPS_PORT: 8443
     env_file:
         - icinga.env
         - global-env.env
