@@ -29,11 +29,31 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     env_file:
         - global-env.env
-    ports:
-        - "5601:5601"
     links:
         - "elasticsearch:elasticsearch"
+
+  apache:
+    restart: always
+    image: reannz/elk_apache:latest
+    container_name: apache-elk
+    environment:
+        KIBANA_URL: http://kibana:5601/
+        HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
+    env_file:
+        - elk.env
+        - global-env.env
+    ports:
+        # temporarily use alt ports to avoid clash with admintool and icinga
+        - "9080:80"
+        - "9443:443"
+    volumes:
+        - apache-certs:/usr/local/apache2/conf/external
+        - apache-logs:/usr/local/apache2/logs
+    links:
+        - "kibana:kibana"
 
 volumes:
   # all volume names will get prefixed with the project name - "elk_"
   elasticsearch-data: {}
+  apache-certs: {}
+  apache-logs: {}
