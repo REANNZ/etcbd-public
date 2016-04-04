@@ -177,7 +177,9 @@ Modify the ````icinga.env```` file with deployment parameters - override at leas
  * `WGET_EXTRA_OPTS`: additional options to passs to `wget` when fetcing the configuration.  This needs in particular to take care of `wget` establishing trust for the certificate presented by the server.
    * If the Admintool Apache server has already been configured with a certificate from an accredited Certification Authority (optional step above), no further action is needed.
    * If the Admintool is using a self-signed automatically generated certificate, we recommend:
-     * Copying this certificate into the Icinga configuration volume so that `wget` can access the certificate: `sudo cp /var/lib/docker/host-volumes/admintool-apache-certs/server.crt /var/lib/docker/host-volumes/icinga-external-conf/`
+     * Copying this certificate into the Icinga configuration volume so that `wget` can access the certificate:
+       * Note that at this stage, the volume for the Icinga external configuration has not been created yet, so we need to jump the gun and create it explicitly (otherwise, the volumes get created automatically by `docker-compose up`): `docker volume create --name icinga_icinga-external-conf`
+       * Copy the certficiate (by running the "cp" command in a container mounting both volumes): `docker run --rm --name debian-cp -v admintool_apache-certs:/admintool-apache-certs -v icinga_icinga-external-conf:/icinga_icinga-external-conf debian:jessie cp /admintool-apache-certs/server.crt /icinga_icinga-external-conf/`
      * And instructing `wget` to trust this certificate: `WGET_EXTRA_OPTS=--ca-certificate=/etc/icinga2/externalconf/server.crt`
      * Alternatively, it is also possibly to instruct `wget` to blindly accept any certificate - but as this creates serious security risks, it can only be used for internal tests and MUST NOT be used in production.  The setting is: `WGET_EXTRA_OPTS=--no-check-certificate`
 

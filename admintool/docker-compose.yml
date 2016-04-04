@@ -15,8 +15,8 @@ services:
         - "80:80"
         - "443:443"
     volumes:
-        - /var/lib/docker/host-volumes/admintool-apache-certs:/usr/local/apache2/conf/external
-        - /var/lib/docker/host-volumes/admintool-apache-logs:/usr/local/apache2/logs
+        - apache-certs:/usr/local/apache2/conf/external
+        - apache-logs:/usr/local/apache2/logs
     links:
         - "djnro:djnro"
 
@@ -32,7 +32,7 @@ services:
         - admintool.env
         - global-env.env
     volumes:
-        - /var/lib/docker/host-volumes/admintool-djnro-data:/djnro/data
+        - djnro-data:/djnro/data
     links:
         - "postgres:postgres"
 
@@ -60,7 +60,7 @@ services:
         - admintool.env
         - global-env.env
     volumes:
-        - /var/lib/docker/host-volumes/admintool-postgres-data:/var/lib/postgresql/data
+        - postgres-data:/var/lib/postgresql/data
 
 #  filebeat:
 #    restart: always
@@ -70,6 +70,14 @@ services:
 #        - admintool.env
 #        - global-env.env
 #    volumes:
-#        - /var/lib/docker/host-volumes/admintool-filebeat-registry:/var/lib/filebeat
+#        - filebeat-registry:/var/lib/filebeat
 #    volumes_from:
 #        - apache
+
+volumes:
+  # all volume names will get prefixed with the project name - "admintool_"
+  apache-certs: {}
+  apache-logs: {}
+  djnro-data: {}
+  postgres-data: {}
+  filebeat-registry: {}

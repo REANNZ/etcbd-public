@@ -8,7 +8,7 @@ services:
     env_file:
         - global-env.env
     volumes:
-        - /var/lib/docker/host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+        - elasticsearch-data:/usr/share/elasticsearch/data
 
   logstash:
     restart: always
@@ -31,3 +31,7 @@ services:
         - "5601:5601"
     links:
         - "elasticsearch:elasticsearch"
+
+volumes:
+  # all volume names will get prefixed with the project name - "elk_"
+  elasticsearch-data: {}

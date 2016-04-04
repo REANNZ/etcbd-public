@@ -13,9 +13,9 @@ services:
         - "8080:80"
         - "8443:443"
     volumes:
-        - /var/lib/docker/host-volumes/icingaweb-apache-certs:/etc/apache2/certs
-        - /var/lib/docker/host-volumes/icingaweb-apache-logs:/var/log/apache2
-        - /var/lib/docker/host-volumes/icingaweb-logs:/var/log/icingaweb2
+        - icingaweb-apache-certs:/etc/apache2/certs
+        - icingaweb-apache-logs:/var/log/apache2
+        - icingaweb-logs:/var/log/icingaweb2
     volumes_from:
         # we need to see the Command Transport file
         - icinga
@@ -30,10 +30,10 @@ services:
         - icinga.env
         - global-env.env
     volumes:
-        - /var/lib/docker/host-volumes/icinga-external-conf:/etc/icinga2/conf.d/external
-        - /var/lib/docker/host-volumes/icinga-cmd:/var/run/icinga2
-        - /var/lib/docker/host-volumes/icinga-lib:/var/lib/icinga2
-        - /var/lib/docker/host-volumes/icinga-logs:/var/log/icinga2
+        - icinga-external-conf:/etc/icinga2/conf.d/external
+        - icinga-cmd:/var/run/icinga2
+        - icinga-lib:/var/lib/icinga2
+        - icinga-logs:/var/log/icinga2
     links:
         - "postgres:postgres-icinga"
 
@@ -46,4 +46,15 @@ services:
         - icinga.env
         - global-env.env
     volumes:
-        - /var/lib/docker/host-volumes/postgres-icinga-data:/var/lib/postgresql/data
+        - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  #  all volume names will get prefixed with the project name - "icinga_"
+  icingaweb-apache-certs: {}
+  icingaweb-apache-logs: {}
+  icingaweb-logs: {}
+  icinga-external-conf: {}
+  icinga-cmd: {}
+  icinga-lib: {}
+  icinga-logs: {}
+  postgres-data: {}
