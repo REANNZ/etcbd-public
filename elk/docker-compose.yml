@@ -1,4 +1,7 @@
-elasticsearch:
+version: '2'
+services:
+
+  elasticsearch:
     restart: always
     image: reannz/elk_elasticsearch:latest
     container_name: elasticsearch
@@ -7,7 +10,7 @@ elasticsearch:
     volumes:
         - /var/lib/docker/host-volumes/elasticsearch-data:/usr/share/elasticsearch/data
 
-logstash:
+  logstash:
     restart: always
     image: reannz/elk_logstash:latest
     container_name: logstash
@@ -18,7 +21,7 @@ logstash:
     links:
         - "elasticsearch:elasticsearch"
 
-kibana:
+  kibana:
     restart: always
     image: reannz/elk_kibana:latest
     container_name: kibana

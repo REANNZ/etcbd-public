@@ -1,5 +1,7 @@
+version: '2'
+services:
 
-apache:
+  apache:
     restart: always
     image: reannz/admintool_apache:latest
     container_name: apache
@@ -18,7 +20,7 @@ apache:
     links:
         - "djnro:djnro"
 
-djnro:
+  djnro:
     restart: always
     #build: ./djnro/
     image: reannz/admintool_djnro:latest
@@ -34,8 +36,8 @@ djnro:
     links:
         - "postgres:postgres"
 
-# djnro-cron depending opn djnro....
-djnro-scheduler:
+  # djnro-cron depending on djnro....
+  djnro-scheduler:
     restart: always
     image: reannz/admintool_djnro:latest
     container_name: djnro-scheduler
@@ -50,7 +52,7 @@ djnro-scheduler:
         - djnro
     command: ./run-kml-refresh.sh
 
-postgres:
+  postgres:
     restart: always
     container_name: postgres
     image: reannz/admintool_postgres:latest
@@ -60,7 +62,7 @@ postgres:
     volumes:
         - /var/lib/docker/host-volumes/admintool-postgres-data:/var/lib/postgresql/data
 
-#filebeat:
+#  filebeat:
 #    restart: always
 #    image: reannz/admintool_filebeat:latest
 #    container_name: filebeat
