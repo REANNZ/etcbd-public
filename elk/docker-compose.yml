@@ -25,6 +25,8 @@ services:
     restart: always
     image: reannz/elk_kibana:latest
     container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     env_file:
         - global-env.env
     ports:
