@@ -12,10 +12,13 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 * Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
 * Metrics runs on ports 9080 and 9443 (HTTP and HTTPS)
 
+It is possible (and recommended if the resources are available) to run these on separate hosts - in which case each can run on the standard port HTTP/HTTPS ports 80/443. Details on the configuration change needed are given below.
+
 # ChangeLog
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-05: Added documentation for adjusting port numbers.
 * 2016-04-05: Added documentation for installing proper SSL certificates.
 * 2016-04-05: Added Metrics tools authentication configuration.
 * 2016-04-04: Added Admintool settings for NREN Institution and Federation name.
@@ -260,6 +263,62 @@ We leave obtaining the certificates outside the scope of this document.
 * Copy the two files into the Apache certificates volume with:
 
         docker run -v `pwd`:/certs-in -v elk_apache-certs:/apache-certs -it --rm --name debcp debian:jessie cp /certs-in/server.crt /certs-in/server.key /apache-certs
+
+# Accessing the services
+
+The Admintool can be accessed at https://admin.example.org/
+
+The management interface of the Admnintool can be accessed at https://admin.example.org/admin/
+
+The management interface of the monitoring tools (Icingaweb2) can be accessed at https://monitoring.example.org:8443/icingaweb2/
+
+The web interface of the metrics tools (Kibana) can be accessed at https://metrics.example.org:9443/icingaweb2/
+
+# Configuring port numbers
+
+The configuration for the three services has been done to allow them to run on
+the same host (avoiding port clashes) - but that means Monitoring and Metrics
+web services run on nonstandard port numbers.
+
+If the tools are deployed on separate hosts, it would be desirable to run them
+on standard port numbers (as there is no longer the need to avoid port
+clashes).
+
+To make the Monitoring tools run on standard port numbers: edit
+`icinga/docker-compose.yml` and change the port mappings for the `icingaweb`
+service from:
+
+    ports:
+      # temporarily use alt ports to avoid clash with admintool
+      - "8080:80"
+      - "8443:443"
+
+to:
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+and also change the `HTTPS_PORT` variable to match the new port number - i.e., from:
+
+    environment:
+        HTTPS_PORT: 8443
+
+to:
+
+    environment:
+        HTTPS_PORT: 443
+
+Restart the containers with:
+
+    cd etcbc-public/monitoring
+    docker-compose up -d
+
+To make the Metrics tools run on standard port numbers, edit
+`elk/docker-compose.yml` and change the port mappings for the `apache` service
+and the `HTTPS_PORT` environment variable the same way (and also restart the
+containers.
+
 
 # Updating deployed tools
 
