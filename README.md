@@ -10,7 +10,7 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 
 * Admintool runs on ports 80 and 443 (HTTP and HTTPS)
 * Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
-* Metrics runs on port 5601 (plain HTTP only)
+* Metrics runs on ports 9080 and 9443 (HTTP and HTTPS)
 
 # ChangeLog
 
