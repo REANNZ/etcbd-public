@@ -18,6 +18,8 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-05: Added documentation on changing settings after running setup scripts.
+* 2016-04-05: Added Troubleshooting section.
 * 2016-04-05: Make REALM_EXISTING_DATA_URL default to blank.
 * 2016-04-05: Added documentation on creating local accounts.
 * 2016-04-05: Added section documenting Network access requirements.
@@ -119,6 +121,13 @@ Use Docker-compose to start the containers:
 Run the setup script:
 
     ./admintool-setup.sh admintool.env
+
+Please note: the `admintool-setup.sh` script should be run only once.  Repeated runs of the script would lead to unpredictable results (some database structures populated multiple times).  Also, for most of the configuration variables (except those listed below), re-running the script is not necessary - restarting the containers should be sufficient (`docker-compose up -d`).  The following variables would are the ones where a container restart would NOT be sufficient:
+* `SITE_PUBLIC_HOSTNAME`: if this value has changed after running `admintool-setup.sh`, besides restarting the containers, change the value also in the Sites entry in the management interface at https://admin.example.org/admin/
+* `REALM_COUNTRY_CODE`: if this value has changed after running `admintool-setup.sh`, besides restarting the containers, change the value also in the Realms entry in the management interface at https://admin.example.org/admin/
+* `ADMIN_USERNAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`: if any of these values has changed after running `admintool-setup.sh`, besides restarting the containers, change the value also in the account definition in the Users table in the management interface at https://admin.example.org/admin/
+* `DB_USER`, `DB_NAME`, `DB_PASSWORD`, `DB_HOST`: changing these values after database initialization is an advanced topic beyond the scope of this document.  Please see the Troubleshooting section below.
+* `REALM_EXISTING_DATA_URL`: changing this value after database initialization is an advanced topic beyond the scope of this document.  Please see the Troubleshooting section below.
 
 At this point, please become familiar with Docker-compose by following our [Introduction to Docker-compose](Docker-compose-intro.md):
 
@@ -228,7 +237,9 @@ Run the setup script:
 
     ./icinga-setup.sh icinga.env
 
-Optional: Install proper SSL certificates into /var/lib/docker/host-volumes/icinga-apache-certs/server.{crt,key}
+Please note: the `icinga-setup.sh` script should be run only once.  Repeated runs of the script would lead to unpredictable results (some database structures populated multiple times).  Also, for most of the configuration variables (except those listed below), re-running the script is not necessary - restarting the containers should be sufficient (`docker-compose up -d`).  The following variables would are the ones where a container restart would NOT be sufficient:
+* `ICINGAWEB2_ADMIN_USERNAME`, `ICINGAWEB2_ADMIN_PASSWORD`: if any of these values has changed after running `icinga-setup.sh`, change the value also in the account definition in the management interface at https://monitoring.example.org/icingaweb2/ (navigate to Configuration => Authentication => Users => select the account).
+* `ICINGA_DB_USER`, `ICINGA_DB_NAME`, `ICINGA_DB_PASSWORD`, `ICINGA_DB_HOST`, `ICINGAWEB2_DB_USER`, `ICINGAWEB2_DB_NAME`, `ICINGAWEB2_DB_PASSWORD`, `ICINGAWEB2_DB_HOST`: changing these values after database initialization is an advanced topic beyond the scope of this document.  Please see the Troubleshooting section below.
 
 Note: at this point, Icinga will be executing checks against all Radius servers as configured.  It is essential to also configure the Radius servers to accept the Icinga host as a Radius client - with the secret as configured in the Admintool.
 
@@ -429,6 +440,49 @@ After updating the files driving the tools:
 * Pull the updated container images: `docker-compose pull`
 * Restart the containers from updated images: `docker-compose up -d`
 * Optionally, watch the logs (leave with Ctrl-C): `docker-compose logs`
+
+# Troubleshooting
+
+Especially when experimenting with the setup, it may happen that the tools get into an undefined and inoperative state.
+
+For each of the tools, the following command would force-fully re-create the containers:
+
+    docker-compose stop
+    docker-compose rm --force
+    docker-compose up -d
+    docker-compose logs
+
+The tools keep their external state in Docker volumes - with the bulk of the state being in the postgres database (for Admintool and Monitoring) and ElasticSearch (Metrics).
+
+For the Admintool, the database volume can be deleted while the containers are stopped and removed so:
+
+    docker-compose stop
+    docker-compose rm --force
+    docker volume rm admintool_postgres-data
+    docker-compose up -d
+    docker-compose logs
+
+Note that after this step, it would be necessary to run the `admintool-setup.sh` script again to initialize the new blank database.
+
+Similarly, for the Monitoring tool, the steps to delete the database volume (while the containers are stopped and removed) would be:
+
+    docker-compose stop
+    docker-compose rm --force
+    docker volume rm icinga_postgres-data
+    docker-compose up -d
+    docker-compose logs
+
+And again, it would be necessary to run the `icinga-setup.sh` script again to initialize the new blank database.
+
+And likewise, for the Metrics tool, the steps to delete the elasticsearch data volume (while the containers are stopped and removed) would be:
+
+    docker-compose stop
+    docker-compose rm --force
+    docker volume rm elk_elasticsearch-data
+    docker-compose up -d
+    docker-compose logs
+
+And in this case, it would be necessary to create the index from Kibana again on first access.
 
 # Appendix: Google Login
 
