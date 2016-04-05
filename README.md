@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-06: Added system recommendations.
 * 2016-04-05: Added documentation on changing settings after running setup scripts.
 * 2016-04-05: Added Troubleshooting section.
 * 2016-04-05: Make REALM_EXISTING_DATA_URL default to blank.
@@ -36,6 +37,15 @@ Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 * 2016-02-15: Added ADMINTOOL_DEBUG environment variable.
 * 2016-02-15: Clarified deployment instructions.
 * 2016-02-15: Added missing instructions to enable Google+API.
+
+# Preliminaries - System considerations
+
+All of the services are packaged as Docker containers, so are not tightly linked to the details of the system they are running on.  However, the following considerations apply to the system:
+
+* The system should be running a recent version of Linux supported by Docker.  For [Ubuntu](https://docs.docker.com/engine/installation/linux/ubuntulinux/), this is 15.10 / 14.04 / 12.04.
+* The system can be either a virtual machine or a physical (real hardware) system.
+* The system should have at least 5GB of disk space (recommended 10GB) available under `/var/lib/docker` (on the `/var` partition or on the root filesystem if not partitioned).
+* The system should have at least 4GB of RAM (recommended 8GB) available.
 
 # Preliminaries - Docker
 
