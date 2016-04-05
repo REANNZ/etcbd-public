@@ -18,7 +18,8 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
-* 2016-04-05: Added section documenting Network access requirements
+* 2016-04-05: Added documentation on creating local accounts.
+* 2016-04-05: Added section documenting Network access requirements.
 * 2016-04-05: Added documentation for adjusting port numbers.
 * 2016-04-05: Added documentation for installing proper SSL certificates.
 * 2016-04-05: Added Metrics tools authentication configuration.
@@ -79,6 +80,10 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
   * Choose from:
     * shibboleth: SAML Login with Shibboleth SP via an identity federation.  Not supported yet.
     * locallogin: Local accounts on the admin tool instance.
+       * Note that local accounts can later be created by logging into the
+         Admintool at https://admin.example.org/admin/ as the administrator
+         (with the username and password created here), and selecting `Users`
+         from the list of tables to administer, and creating the user with the `Add user` button.
     * google-oauth2: Login with a Google account.  Only works for applications registered with Google - see below on enabling Google login.
     * google-plus: Login with a Google account via Google Plus.  May be used as an alternative to Google OAuth2.  Also only works for applications registered with Google - see below on enabling Google login.
     * yahoo: Login with a Yahoo account.  No registration needed.
