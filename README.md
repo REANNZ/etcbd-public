@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-05: Added section documenting Network access requirements
 * 2016-04-05: Added documentation for adjusting port numbers.
 * 2016-04-05: Added documentation for installing proper SSL certificates.
 * 2016-04-05: Added Metrics tools authentication configuration.
@@ -319,6 +320,21 @@ To make the Metrics tools run on standard port numbers, edit
 and the `HTTPS_PORT` environment variable the same way (and also restart the
 containers.
 
+# Network access requirements
+
+The Admintool, Monitoring, and Metrics tools provide a variety of services with
+different audiences - the following lists access that should be granted:
+
+* The Admintool is to be accessed by NRO staff, institutional administrators,
+  and the general public - so should be publicly accessible on TCP ports 80 and 443.
+* The Monitoring and Metrics tools would be accessed primarily by NRO staff
+  over HTTP/HTTPS.  Access is protected by username/password authentication
+  over HTTPS - so depending on local policies and preferences, the HTTP+HTTPS
+  ports can be made accessible either publicly, or just from the NRO internal network.
+* The Metrics tools also listen on TCP port 5043 for incoming messages from
+  other services (primarily the Radius server, also Apache on the Admintool).
+  This port should be made accessible only to the services pushing in data and
+  MUST NOT be publicly accessible (i.e., MUST be protected by a firewall).
 
 # Updating deployed tools
 
