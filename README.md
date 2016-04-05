@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-05: Make REALM_EXISTING_DATA_URL default to blank.
 * 2016-04-05: Added documentation on creating local accounts.
 * 2016-04-05: Added section documenting Network access requirements.
 * 2016-04-05: Added documentation for adjusting port numbers.
@@ -71,7 +72,10 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````NRO_FEDERATION_NAME````: the name of the AAI federation the Admintool is connected to (if available to the NRO).  Leave unmodified if no AAI federation exists locally.
 * ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
-* ````REALM_EXISTING_DATA_URL````: In a real deployment, set this to blank (````REALM_EXISTING_DATA_URL=````) to start with an empty database.  Leaving it with the value provided would import REANNZ data - suitable for a test environment.
+* ````REALM_EXISTING_DATA_URL````: In a real deployment, leave this set to blank
+  (````REALM_EXISTING_DATA_URL=````) to start with an empty database.  In a test deployment,
+  you can point to an existing database to load the initial data
+  (e.g., you can load the REANNZ data by setting the URL to `https://member.eduroam.net.nz/general/institution.xml`).
 * ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring these settings)
 * ````ADMINTOOL_SECRET_KEY````: this should be a long and random string used internall by the admintool.
   * Please generate this value with: ````openssl rand -base64 48````
