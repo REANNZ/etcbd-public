@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-04-08: Added documentation on entering server details for monitoring into the Admintool.
 * 2016-04-06: Added system recommendations.
 * 2016-04-05: Added documentation on changing settings after running setup scripts.
 * 2016-04-05: Added Troubleshooting section.
@@ -200,6 +201,24 @@ As a final step, prepare the account Icinga would use to create the configuratio
   * In the list of `Available user permissions`, select all three `edumanage | Monitored Realm (local authn)` permissions and add them to the `Chosen user permissions`.  (The permission to access the monitoring credentials is internally used to represent as permission to access the monitoring configuration).
 
 Now you should be able to access the monitoring configuration at https://admin.example.org/icingaconf with this account.  (And it is also accessible under the administrator account).
+
+## Entering data for monitoring configuration into the Admintool.
+
+The following information needs to be entered into the Admintool in order to
+generate the monitoring configuration.  Due to dependencies between different
+data objects, we recommend entering the data in the order given here.
+
+All of the data can be entered at https://admin.example.org/admin/
+
+* Add an *Institution* - select the NRO Realm, entity type and enter the English name of the Institution.
+* Add at least one *Contact* for the institution (not that Contacts can be reused across institutions).
+* Add an *Institution Details* object: select the Institution it belongs to, enter Address details and select at least one Contact.
+* Add an *Institution Server*: select the institution (or possibly more) the server belongs to, server type, a descriptive name and the host name, the Radius secret, and select whether the server responds to Status messages.
+* Add the *Institution's Realms*: enter the Realm name, select the Institution and select the institution's radius server that the NRO radius server should be proxying to.
+* Add an *Institution Monitored Realm* entry: select the Instituion's Realm and select "Local account authentication" as the Monitor type (the only available entry).
+* Add a *Monitored Realm (local authn)* entry: select the Monitored Realm and select the EAP method, phase2 authentication, username and password to match the institution's radius server settings.
+
+Entering all of the above should be sufficient for the Admintool to generate monitoring checks for Icinga - both via the NRO servers and directly through the Institution's servers.
 
 # Deploying monitoring tools
 
