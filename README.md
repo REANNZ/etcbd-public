@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-05-05: Added documentation on feeding radius logs into ELK.
 * 2016-04-08: Added documentation on entering server details for monitoring into the Admintool.
 * 2016-04-06: Added system recommendations.
 * 2016-04-05: Added documentation on changing settings after running setup scripts.
@@ -313,6 +314,45 @@ We leave obtaining the certificates outside the scope of this document.
 * Copy the two files into the Apache certificates volume with:
 
         docker run -v `pwd`:/certs-in -v elk_apache-certs:/apache-certs -it --rm --name debcp debian:jessie cp /certs-in/server.crt /certs-in/server.key /apache-certs
+
+# Feeding Radius logs from NRS servers into metrics tools (ELK)
+
+The main benefits in having the metrics tools is in using them to explore the usage data from the eduroam Radius servers.
+
+The right collection point is at the NRS servers.
+
+Setting up the NRS servers is outside the scope of this documentation - the prerequisites are that:
+* NRS servers are already deployed.  (Assuming this is done as a standalone deployment, not using Docker)
+* NRS servers are configured to produce the linelog log file.
+* The linelog file includes the Chargeable User Identity (CUI) field.
+* The linelog file location is `/var/log/freeradius/linelog`
+
+We then recommend to install filebeat to ship the logs to the ELK stack.  We
+recommend using Docker to deploy filebeat.  Part of this repository are also
+files instructing Docker to run filebeat.
+
+The steps are:
+
+Install Docker Engine on the radius (NRS) server.  Please follow our [Docker setup instructions](Docker-setup.md).
+
+Check out this repository (same as when deploying the ancillary service as per above):
+
+    git clone https://github.com/REANNZ/etcbd-public
+
+Modify the ````filebeat-radius.env```` file with deployment parameters - override at least the following values:
+
+* ````LOGSTASH_HOST````: the hostname the metrics tools are reachable at.
+* ````RADIUS_SERVER_HOSTNAME````: the hostname of the radius server (how it should be reported to the metrics tools)
+
+Additionally, in ````global-env.env````, customize system-level ````TZ````
+and ````LANG```` as preferred - note that the `TZ` setting will be used as the
+timezone to interpret the linelog timestamps, so MUST match the radius server
+timezone.
+
+Use Docker-compose to start the containers:
+
+    cd etcbd-public/filebeat-radius
+    docker-compose up -d
 
 # Accessing the services
 
