@@ -32,7 +32,7 @@ services:
         - icinga.env
         - global-env.env
     volumes:
-        - icinga-external-conf:/etc/icinga2/conf.d/external
+        - icinga-external-conf:/etc/icinga2/externalconf
         - icinga-cmd:/var/run/icinga2
         - icinga-lib:/var/lib/icinga2
         - icinga-logs:/var/log/icinga2
