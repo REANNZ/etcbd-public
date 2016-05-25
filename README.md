@@ -412,7 +412,8 @@ containers.
 # Network access requirements
 
 The Admintool, Monitoring, and Metrics tools provide a variety of services with
-different audiences - the following lists access that should be granted:
+different audiences - the following lists access that should be granted (both
+at the perimeter firewall and in the local host firewall as applicable):
 
 * The Admintool is to be accessed by NRO staff, institutional administrators,
   and the general public - so should be publicly accessible on TCP ports 80 and 443.
