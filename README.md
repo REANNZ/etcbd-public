@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-06-02: Updated documentation on metrics service: new variable LOCAL_COUNTRY.
 * 2016-05-05: Added documentation on feeding radius logs into ELK.
 * 2016-04-08: Added documentation on entering server details for monitoring into the Admintool.
 * 2016-04-06: Added system recommendations.
@@ -293,6 +294,7 @@ Modify the ````elk.env```` file with deployment parameters - override at least t
 * ````ADMIN_USERNAME````: optionally configure the administrator username (default: `admin`)
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.
 * ````ADMIN_EMAIL````: email address so far only used in web server error messages.
+* ````LOCAL_COUNTRY````: two-letter country code of the local country (for metrics to identify domestic and international visitors and remote sites).
 
 Additionally, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
 
