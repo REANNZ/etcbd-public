@@ -15,6 +15,7 @@ services:
     image: reannz/elk_logstash:latest
     container_name: logstash
     env_file:
+        - elk.env
         - global-env.env
     ports:
         - "5043:5043"
