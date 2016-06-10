@@ -296,6 +296,7 @@ Modify the ````elk.env```` file with deployment parameters - override at least t
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.
 * ````ADMIN_EMAIL````: email address so far only used in web server error messages.
 * ````LOCAL_COUNTRY````: two-letter country code of the local country (for metrics to identify domestic and international visitors and remote sites).
+* ````LOCAL_INST````: domain name of institution to use in sample per-instititon visualizations.  (Additional per-institution visualizations can be created by copying the per-institution visualizations and dashboard and adjusting accordingly).
 
 Additionally, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
 
@@ -314,8 +315,8 @@ Please note: the `elk-setup.sh` script may be run multiple times (contrary to
 the other setup scripts).
 This script pushes a small set of predefined visualizations and dashboards into
 the Metrics tool (the Kibana web application).
-The only environment variable this script depends on is `LOCAL_COUNTRY`: to
-propagage a change to this variable, it is necessary to first restart the
+The only environment variables this script depends on are `LOCAL_COUNTRY` and `LOCAL_INST`: to
+propagage a change to these variable, it is necessary to first restart the
 containers (`docker-compose up -d`), then re-run the setup script.
 
 ## Installing proper SSL certificates for Metrics tools
