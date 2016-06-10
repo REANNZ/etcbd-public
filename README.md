@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-06-10: Updated documentation on metrics service: installing and accessing visualizations
 * 2016-06-02: Updated documentation on metrics service: new variable LOCAL_COUNTRY.
 * 2016-05-05: Added documentation on feeding radius logs into ELK.
 * 2016-04-08: Added documentation on entering server details for monitoring into the Admintool.
@@ -305,6 +306,18 @@ Use Docker-compose to start the containers:
 
     docker-compose up -d
 
+Run the setup script:
+
+    ./elk-setup.sh
+
+Please note: the `elk-setup.sh` script may be run multiple times (contrary to
+the other setup scripts).
+This script pushes a small set of predefined visualizations and dashboards into
+the Metrics tool (the Kibana web application).
+The only environment variable this script depends on is `LOCAL_COUNTRY`: to
+propagage a change to this variable, it is necessary to first restart the
+containers (`docker-compose up -d`), then re-run the setup script.
+
 ## Installing proper SSL certificates for Metrics tools
 
 We also recommend operating the Metrics tools with proper SSL certificates.
@@ -355,6 +368,35 @@ Use Docker-compose to start the containers:
 
     cd etcbd-public/filebeat-radius
     docker-compose up -d
+
+# Accessing visualizations in metrics tools
+
+After properly setting up the Metrics tool as per above, it should come with a
+small initial set of visualizations and three dashboards.
+
+These can be accessed directly at
+* https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends
+* https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends-and-Intl-Visitors
+* https://metrics.example.org:9443/app/kibana#/dashboard/InstitutionalTrendAndActivity
+
+Or alterntively, by navigating in Kibana to `Settings` -> `Objects` ->
+`dashboards` and clicking the "eye" (second) icon next to the dashboard.
+
+In either case, it will be necessary to select an appropriate time range
+through the Kibana time selector tool (top right corner of the browser window).
+
+
+## Troubleshooting visualizatins ##
+
+If you get an error message about variables not being found when displaying the
+above visualizations, this is likely because the Kibana Index Pattern was
+created before all of the fields were introduced into Kibana (through having
+log messages arrive via logstash).
+
+The very simple solution is to re-create the Index Pattern: in Kibana, navigate
+to `Settings` -> `Indices` and select `Create` again (and confirm overwriting
+the existing Index Pattern).  This would rescan the indices available and would
+introduce any newly found variables into Kibana.
 
 # Accessing the services
 
