@@ -29,6 +29,7 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     env_file:
+        - elk.env
         - global-env.env
     links:
         - "elasticsearch:elasticsearch"
