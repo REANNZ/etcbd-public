@@ -14,6 +14,9 @@ services:
     restart: always
     image: reannz/elk_logstash:latest
     container_name: logstash
+    environment:
+        # set to blank to enable debug - dump all events on logstash console
+        LOGSTASH_DEBUG_DISABLE: "#"
     env_file:
         - elk.env
         - global-env.env
