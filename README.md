@@ -364,7 +364,7 @@ The management interface of the Admnintool can be accessed at https://admin.exam
 
 The management interface of the monitoring tools (Icingaweb2) can be accessed at https://monitoring.example.org:8443/icingaweb2/
 
-The web interface of the metrics tools (Kibana) can be accessed at https://metrics.example.org:9443/icingaweb2/
+The web interface of the metrics tools (Kibana) can be accessed at https://metrics.example.org:9443/
 
 # Configuring port numbers
 
