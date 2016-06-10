@@ -8,7 +8,8 @@ services:
     environment:
         DJNRO_HOST: djnro
         HTTPS_PORT: 443
-        HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
+        HTTPD_ARGS: ""
+        #HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     env_file:
         - admintool.env
         - global-env.env

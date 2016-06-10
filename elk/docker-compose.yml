@@ -44,7 +44,8 @@ services:
     environment:
         KIBANA_URL: http://kibana:5601/
         HTTPS_PORT: 9443
-        HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
+        HTTPD_ARGS: ""
+        #HTTPD_ARGS: -DAPACHE_LOGS_STDOUT
     env_file:
         - elk.env
         - global-env.env
