@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-06-14: Updated Admintool documentation: added instructions for generating a CSR.
 * 2016-06-14: Updated Metrics documentation: replace LOCAL_INST env var with INST_NAMES, describe visualizations.
 * 2016-06-10: Updated documentation on metrics service: installing and accessing visualizations.
 * 2016-06-02: Updated documentation on metrics service: new variable LOCAL_COUNTRY.
@@ -151,8 +152,13 @@ At this point, please become familiar with Docker-compose by following our [Intr
 We strongly recommend operating the Admintool with proper SSL certificates.  The tool would generate a self-signed certificate on startup in order to operate, but this would make interaction difficult for both end-users (browser access) as well as for automated tools.
 
 We leave obtaining the certificates outside the scope of this document.
-* Obtain the certificates in PEM format.
-* Combine the server certificate with any intermediate certificates (concatenated into a single file) and store this as `server.crt` in a directory on the server running the Admintool.
+* Obtain the certificates in PEM format, following your usual procedure for obtaining certificates.
+  * In the absence of usual procedure, generate a certificate signing request with:
+
+          openssl req -new -newkey rsa:2048 -sha256 -keyout server.key -nodes -out server.csr
+
+  * Submit the CSR to your preferred Certification Authority and wait to receive a server certificate as server.crt.
+* Combine the server certificate with any intermediate certificates (if provided by the CA) by concatenating the server certificate with any intermediate certificates into a single file (server certificate first, then any intermediate certificates ordered leaf to root).  Store this as `server.crt` in a directory on the server running the Admintool.
 * Store the private key as `server.key` in the same directory.
 * Copy the two files into the Apache certificates volume with:
 
@@ -281,8 +287,8 @@ Note: at this point, Icinga will be executing checks against all Radius servers 
 We also recommend operating the Monitoring tools with proper SSL certificates.
 
 We leave obtaining the certificates outside the scope of this document.
-* Obtain the certificates in PEM format.
-* Combine the server certificate with any intermediate certificates (concatenated into a single file) and store this as `server.crt` in a directory on the server running the Monitoring tools.
+* Obtain the certificates in PEM format (see the above section on certificates for Admintool for more detailed instructins)..
+* Combine the server certificate with any intermediate certificates (concatenated into a single file) and store this as `server.crt` in a directory on the server running the Monitoring tools (again, see the above section on certificates for Admintool for more detailed instructins).
 * Store the private key as `server.key` in the same directory.
 * Copy the two files into the Apache certificates volume with:
 
@@ -330,8 +336,8 @@ institutions).
 We also recommend operating the Metrics tools with proper SSL certificates.
 
 We leave obtaining the certificates outside the scope of this document.
-* Obtain the certificates in PEM format.
-* Combine the server certificate with any intermediate certificates (concatenated into a single file) and store this as `server.crt` in a directory on the server running the Metrics tools.
+* Obtain the certificates in PEM format (see the above section on certificates for Admintool for more detailed instructins).
+* Combine the server certificate with any intermediate certificates (concatenated into a single file) and store this as `server.crt` in a directory on the server running the Metrics tools (again, see the above section on certificates for Admintool for more detailed instructins).
 * Store the private key as `server.key` in the same directory.
 * Copy the two files into the Apache certificates volume with:
 
