@@ -1,4 +1,6 @@
 #!/bin/bash
 
-docker exec  kibana /import_dashboards.sh -l http://elasticsearch:9200
+echo "Loading dashboards and visualizations..."
+docker exec kibana /load_dashboards.sh
+echo "...done"
 
