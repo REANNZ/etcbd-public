@@ -18,7 +18,8 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
-* 2016-06-10: Updated documentation on metrics service: installing and accessing visualizations
+* 2016-06-14: Updated Metrics documentation: replace LOCAL_INST env var with INST_NAMES, describe visualizations.
+* 2016-06-10: Updated documentation on metrics service: installing and accessing visualizations.
 * 2016-06-02: Updated documentation on metrics service: new variable LOCAL_COUNTRY.
 * 2016-05-05: Added documentation on feeding radius logs into ELK.
 * 2016-04-08: Added documentation on entering server details for monitoring into the Admintool.
@@ -296,7 +297,7 @@ Modify the ````elk.env```` file with deployment parameters - override at least t
 * ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.
 * ````ADMIN_EMAIL````: email address so far only used in web server error messages.
 * ````LOCAL_COUNTRY````: two-letter country code of the local country (for metrics to identify domestic and international visitors and remote sites).
-* ````LOCAL_INST````: domain name of institution to use in sample per-instititon visualizations.  (Additional per-institution visualizations can be created by copying the per-institution visualizations and dashboard and adjusting accordingly).
+* ````INST_NAMES````: white-space delimited list of domain names of institutions to generate per-instititon dashboard and visualizations for.
 
 Additionally, in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
 
@@ -314,10 +315,15 @@ Run the setup script:
 Please note: the `elk-setup.sh` script may be run multiple times (contrary to
 the other setup scripts).
 This script pushes a small set of predefined visualizations and dashboards into
-the Metrics tool (the Kibana web application).
-The only environment variables this script depends on are `LOCAL_COUNTRY` and `LOCAL_INST`: to
+the Metrics tool (the Kibana web application) - and also applies a persistent
+setting to the elasticsearch cluster to remove the limit on queued search
+queries (the default limit causes some Kibana visualization to break).
+The only environment variables this script depends on are `LOCAL_COUNTRY` and `INST_NAMES`: to
 propagage a change to these variable, it is necessary to first restart the
 containers (`docker-compose up -d`), then re-run the setup script.
+(If institutions were *removed* from INST_NAMES, it may be necessary to
+manually remove the dashboard and visualizations created for these
+institutions).
 
 ## Installing proper SSL certificates for Metrics tools
 
@@ -378,7 +384,7 @@ small initial set of visualizations and three dashboards.
 These can be accessed directly at
 * https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends
 * https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends-and-Intl-Visitors
-* https://metrics.example.org:9443/app/kibana#/dashboard/InstitutionalTrendAndActivity
+* https://metrics.example.org:9443/app/kibana#/dashboard/InstitutionalTrendAndActivity_<inst-dns-name>
 
 Or alterntively, by navigating in Kibana to `Settings` -> `Objects` ->
 `dashboards` and clicking the "eye" (second) icon next to the dashboard.
@@ -386,6 +392,15 @@ Or alterntively, by navigating in Kibana to `Settings` -> `Objects` ->
 In either case, it will be necessary to select an appropriate time range
 through the Kibana time selector tool (top right corner of the browser window).
 
+The visualizations available are:
+* `IdP-Trend-Aggregate`: graph of daily authentication sessions, split into domestic and international based on the IdP the user authenticated through.
+* `SP-Trend-Aggregate`: graph of daily authentication sessions, split into domestic and international based on the SP the user authenticated to.
+* `VisitorsInclDomestic`: per-country composition of authenticated session based on country of origin (IdP the user authenticated through)
+* `VisitorsExclDomestic`: per-country composition of authenticated session based on country of origin (IdP the user authenticated through), excluding domestic users (where `realm_country` equals `$LOCAL_COUNTRY`)
+* `IdP-Trend-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the IdP, split into domestic and international based on the site the user authenticated to.
+* `SP-Trend-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the SP, split into domestic and international based on the IdP the user authenticated through.
+* `IdP-Activity-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the IdP, split per domain (operator_name) of the site the user authenticated to.
+* `SP-Activity-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the SP, split per domain (realm) of the IdP the user authenticated through.
 
 ## Troubleshooting visualizatins ##
 
