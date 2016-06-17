@@ -408,7 +408,7 @@ The visualizations available are:
 * `IdP-Activity-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the IdP, split per domain (operator_name) of the site the user authenticated to.
 * `SP-Activity-Institution_<inst-dns-name>`: per-institution graph of daily authentication sessions where this institution was the SP, split per domain (realm) of the IdP the user authenticated through.
 
-## Troubleshooting visualizatins ##
+## Troubleshooting visualizations ##
 
 If you get an error message about variables not being found when displaying the
 above visualizations, this is likely because the Kibana Index Pattern was
