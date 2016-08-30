@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2016-08-30: Added instructions for configuring a GoogleMaps API key.
 * 2016-06-14: Updated Admintool documentation: added instructions for generating a CSR.
 * 2016-06-14: Updated Metrics documentation: replace LOCAL_INST env var with INST_NAMES, describe visualizations.
 * 2016-06-10: Updated documentation on metrics service: installing and accessing visualizations.
@@ -95,6 +96,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
   you can point to an existing database to load the initial data
   (e.g., you can load the REANNZ data by setting the URL to `https://member.eduroam.net.nz/general/institution.xml`).
 * ````GOOGLE_KEY````/````GOOGLE_SECRET```` - provide Key + corresponding secret for an API credential (see below on configuring these settings)
+* ````GOOGLE_API_KEY```` - provided a Google Maps browser API key (see below)
 * ````ADMINTOOL_SECRET_KEY````: this should be a long and random string used internall by the admintool.
   * Please generate this value with: ````openssl rand -base64 48````
 * ````ADMINTOOL_DEBUG````: for troubleshooting, uncomment the existing line: ````ADMINTOOL_DEBUG=True```` - but remember to comment it out again (or change to False or blank) after done with the troubleshooting.
@@ -636,4 +638,33 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
         https://admin.example.org/accounts/complete/google-oauth2/
 
 * After saving, this gives you the Client ID and secret (use these as the GOOGLE_KEY and GOOGLE_SECRET)
+
+# Appendix: Google API keys
+
+The Admintool uses the Google Maps Javascript API to render the service
+location points on maps provided by Google.
+
+As of June 22, 2016, the Google Maps Javascript API now requires an API key.
+Any new services deployed after this date (as determined by the domain
+registration date) require an API key.  On such services, without an API key,
+the map view displays an error and the Javascript console shows messages
+indicating an API key is missing.  However, even if your service is working
+without an API key, we strongly recommend to configure one, as Google may in
+the future decide to make this mandatory for all services.  You can find more
+details about the API change itself in the original
+[Google Announcment](http://googlegeodevelopers.blogspot.co.nz/2016/06/building-for-scale-updates-to-google.html).
+
+To create a Google Maps API key:
+* Start at the Google Developer Console: http://console.developers.google.com/
+* Open the project you created earlier for configuring Google Login (or create a new one if you have not configured Google Login yet).
+* From the main menu, select the API Manager
+* Search for ````Google Maps JavaScript API```` and Enable this for your project.
+* In the navigation side-bar on the left, select Credentials
+* From `Create credentials`, select `API key` and then `Browser key`
+* Pick a name for your credential - e.g., `Browser key - Google Maps JavaScript API`
+* Enter the name of your website as the accepted referrer.  This would be the hostname you entered as SITE_PUBLIC_HOSTNAME in your `admintool.env` - e.g.:
+
+        admin.example.org
+
+* After saving, the Google Developer Console gives you the API key - configure this in the `GOOGLE_API_KEY` setting in `admintool.env`
 
