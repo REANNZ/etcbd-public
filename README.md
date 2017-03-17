@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2017-03-17: Added environment variables for institutional branding.
 * 2016-08-30: Added instructions for configuring a GoogleMaps API key.
 * 2016-06-14: Updated Admintool documentation: added instructions for generating a CSR.
 * 2016-06-14: Updated Metrics documentation: replace LOCAL_INST env var with INST_NAMES, describe visualizations.
@@ -88,6 +89,9 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````ADMIN_EMAIL````: where to send NRO admin notifications.
 * ````REALM_COUNTRY_CODE```` / ````REALM_COUNTRY_NAME```` - your eduroam country
 * ````NRO_INST_NAME````: the name of the institution acting as the National Roaming Operator (NRO)
+* ````NRO_INST_URL````: the URL of the institution acting as the NRO
+* ````NRO_INST_FACEBOOK```` (OPTIONAL): the Social Media (Facebook) handle of the NRO institution
+* ````NRO_INST_TWITER```` (OPTIONAL): the Social Media (Twitter) handle of the NRO institution
 * ````NRO_FEDERATION_NAME````: the name of the AAI federation the Admintool is connected to (if available to the NRO).  Leave unmodified if no AAI federation exists locally.
 * ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
