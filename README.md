@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-03-02: Added environment variable FEDERATION_DOC_URL.
 * 2017-03-17: Added environment variables for institutional branding.
 * 2016-08-30: Added instructions for configuring a GoogleMaps API key.
 * 2016-06-14: Updated Admintool documentation: added instructions for generating a CSR.
@@ -93,6 +94,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````NRO_INST_FACEBOOK```` (OPTIONAL): the Social Media (Facebook) handle of the NRO institution
 * ````NRO_INST_TWITER```` (OPTIONAL): the Social Media (Twitter) handle of the NRO institution
 * ````NRO_FEDERATION_NAME````: the name of the AAI federation the Admintool is connected to (if available to the NRO).  Leave unmodified if no AAI federation exists locally.
+* ````FEDERATION_DOC_URL````: URL to the federation policy document / documentation about the federation.
 * ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
 * ````REALM_EXISTING_DATA_URL````: In a real deployment, leave this set to blank
