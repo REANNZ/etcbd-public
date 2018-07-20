@@ -24,6 +24,8 @@ services:
         - "5043:5043"
     links:
         - "elasticsearch:elasticsearch"
+    volumes:
+        - logstash-data-6:/usr/share/logstash/data
 
   kibana:
     restart: always
@@ -63,5 +65,6 @@ services:
 volumes:
   # all volume names will get prefixed with the project name - "elk_"
   elasticsearch-data: {}
+  logstash-data-6: {}
   apache-certs: {}
   apache-logs: {}
