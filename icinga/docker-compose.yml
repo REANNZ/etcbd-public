@@ -20,9 +20,8 @@ services:
         - icingaweb-apache-certs:/etc/apache2/certs
         - icingaweb-apache-logs:/var/log/apache2
         - icingaweb-logs:/var/log/icingaweb2
-    volumes_from:
-        # we need to see the Command Transport file
-        - icinga
+        # we need to access to the Command Transport file
+        - icinga-cmd:/var/run/icinga2
     links:
         - "postgres:postgres-icinga"
 
