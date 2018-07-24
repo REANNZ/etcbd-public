@@ -22,7 +22,7 @@ docker exec postgres gosu postgres psql --command="create database $DB_NAME with
 # Initialize database on the Django side - and create super user
 docker exec djnro /envwrap.sh ./manage.py migrate
 docker exec djnro /envwrap.sh ./manage.py createsuperuser --noinput --username "$ADMIN_USERNAME" --email "$ADMIN_EMAIL"
-docker exec -i djnro /envwrap.sh ./manage.py changepassword "$ADMIN_USERNAME" <<-EOF
+docker exec -it djnro /envwrap.sh ./manage.py changepassword "$ADMIN_USERNAME" <<-EOF
 	$ADMIN_PASSWORD
 	$ADMIN_PASSWORD
 EOF
