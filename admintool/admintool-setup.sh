@@ -56,7 +56,7 @@ EOF
 # import initial data
 if [ -n "$REALM_EXISTING_DATA_URL" ] ; then
     # NOTE: this exact spelling
-    docker exec djnro curl -o djnro/institution.xml "$REALM_EXISTING_DATA_URL"
+    docker exec djnro curl -s -o djnro/institution.xml "$REALM_EXISTING_DATA_URL"
     docker exec djnro /envwrap.sh ./manage.py parse_institution_xml --verbosity=0 djnro/institution.xml
 fi
 
