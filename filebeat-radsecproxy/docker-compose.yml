@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  filebeat:
+    restart: always
+    image: filebeat-radius:latest
+    container_name: filebeat-radius
+    env_file:
+        - filebeat-radius.env
+        - global-env.env
+    volumes:
+        - filebeat-registry:/var/lib/filebeat
+        # map radsecproxy logs as /var/log/radsecproxy
+        - /var/log/radsecproxy:/var/log/radsecproxy
+
+volumes:
+  # all volume names will get prefixed with the project name - "filebeatradius_"
+  filebeat-registry: {}
