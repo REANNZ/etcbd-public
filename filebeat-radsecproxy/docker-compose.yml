@@ -3,7 +3,7 @@ services:
 
   filebeat:
     restart: always
-    image: filebeat-radsecproxy
+    image: reannz/filebeat-radsecproxy:latest
     container_name: filebeat-radsecproxy
     env_file:
         - filebeat-radsecproxy.env
