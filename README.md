@@ -197,11 +197,11 @@ There is a number of configuration variables in `admintool.env` that control how
   * `NRO_SERVER_SECRET_servererid`: the Radius secret to use with the server
   * `NRO_SERVER_PORT_serverid`: the Radius port number to use with this server (Optional, defaults to 1812)
   * `NRO_SERVER_STATUS_serverid`: should be set to `True` if the server supports Radius Status checks (Optional, defaults to False)
-* `ICINGA_CONF_REQUEST_CUI`: should be set to `True` if the eduroam login checks should request the Chargeable User Identity (CUI) attribute (Optiona, defaults to False)
+* `ICINGA_CONF_REQUEST_CUI`: should be set to `True` if the eduroam login checks should request the Chargeable User Identity (CUI) attribute (Optional, defaults to False)
 * `ICINGA_CONF_OPERATOR_NAME`: the Operator Name to use in the eduroam login checks (Optional, no operator name is passed if not specified).
 * `ICINGA_CONF_VERBOSITY`: the verbosity level in eduroam login checks.  (Optional, defaults to 1.  Level of at least 1 is needed to see the CUI returned by the check.  Values can range from 0 to 2).
-* `ICINGA_CONF_GENERATE_INSTSERVER_CHECKS`: Should the generated configuration include the institutional server checks? (Optiona, defaults to True).  This setting gives the option to disable the institional server checks if not desired.
-* `ICINGA_CONF_NOTIFY_INST_CONTACTS`: Should the generated configuration notify institutional contacts - for server and monitored realm checks? (Optiona, defaults to True).  This setting gives the option to disable all Notifications sent to institional contacts if not desired - in which case alerts would go only to the nominated NRO email address given in the Monitoring tools configuration.
+* `ICINGA_CONF_GENERATE_INSTSERVER_CHECKS`: Should the generated configuration include the institutional server checks? (Optional, defaults to True).  This setting gives the option to disable the institional server checks if not desired.
+* `ICINGA_CONF_NOTIFY_INST_CONTACTS`: Should the generated configuration notify institutional contacts - for server and monitored realm checks? (Optional, defaults to True).  This setting gives the option to disable all Notifications sent to institional contacts if not desired - in which case alerts would go only to the nominated NRO email address given in the Monitoring tools configuration.
 
 * Update Admintool to pick up the changed configuration:
 
