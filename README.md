@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-07-30: Added instructions to create user profile for service accounts in Admintool.
 * 2018-03-02: Added environment variable FEDERATION_DOC_URL.
 * 2017-03-17: Added environment variables for institutional branding.
 * 2016-08-30: Added instructions for configuring a GoogleMaps API key.
@@ -217,6 +218,14 @@ As a final step, prepare the account Icinga would use to create the configuratio
   * We recommend generating the password, e.g. with `openssl rand -base64 12``
 * Use the `Save and continue editing` button to get to the next screen with additional details
   * In the list of `Available user permissions`, select all three `edumanage | Monitored Realm (local authn)` permissions and add them to the `Chosen user permissions`.  (The permission to access the monitoring credentials is internally used to represent as permission to access the monitoring configuration).
+* We also recommend to create a `User Profile` entry for this user account - to keep the internal database consistent with assumptions the DjNRO code makes:
+  * Select `User Profiles` from the list of tables to administer.
+  * Use the `Add User Profile` button to bring up the user profile creation form.
+  * Select the user just created in the above step as the user.
+  * Select an institution (the NRO organisation would do) to associate the user with.
+  * Leave the "Is social active" option unchecked.
+    * This way, the account does NOT get permission to administer the institution - but a user profile is created, making the internal database consistent.
+  * Save the user profile.
 
 Now you should be able to access the monitoring configuration at https://admin.example.org/icingaconf with this account.  (And it is also accessible under the administrator account).
 
