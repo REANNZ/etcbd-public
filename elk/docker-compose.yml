@@ -11,7 +11,7 @@ services:
     env_file:
         - global-env.env
     volumes:
-        - elasticsearch-data:/usr/share/elasticsearch/data
+        - elasticsearch-data-6:/usr/share/elasticsearch/data
 
   logstash:
     restart: always
@@ -67,7 +67,7 @@ services:
 
 volumes:
   # all volume names will get prefixed with the project name - "elk_"
-  elasticsearch-data: {}
+  elasticsearch-data-6: {}
   logstash-data-6: {}
   apache-certs: {}
   apache-logs: {}
