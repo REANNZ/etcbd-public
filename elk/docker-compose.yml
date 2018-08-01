@@ -8,6 +8,7 @@ services:
     environment:
         thread_pool.search.queue_size: 10000
         thread_pool.search.max_queue_size: 10000
+        node.name: elasticsearch-docker
     env_file:
         - global-env.env
     volumes:
