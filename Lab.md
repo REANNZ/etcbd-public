@@ -117,15 +117,29 @@ At this point, please become familiar with Docker-compose by following our [Intr
 
 The metrics tools are using the ELK stack (ElasticSearch, Logstash, Kibana) - and are also deployed with Docker.
 
-The only configuration parameters is the system-wide global.env - which can be customized the same way as done for the admintool.
+There are a few settings to configure: start by copying over `global-env.env` from Admintool:
 
-Use Docker-compose to start the containers (copying over ````global-env.env```` from admintool):
-
-    cd etcbd-public/elk
+    cd ~/etcbd-public/elk
     cp ../admintoool/global-env.env .
-    docker-compose up -d
 
-This gets the metrics tools running, but we need to push some data into the tools before we can explore them.
+Modify the `elk.env` file with deployment parameters - override at least the following values:
+
+* Pick your own admin password: ````ADMIN_PASSWORD````
+* `SITE_PUBLIC_HOSTNAME`: the hostname this site will be visible as.  Enter your VM hostname: `xx--rad1.tein.aarnet.edu.au`
+* `LOCAL_COUNTRY`: two-letter country code of the local country (for metrics to identify domestic and international visitors and remote sites).
+* `INST_NAMES`: white-space delimited list of domain names of institutions to generate per-instititon dashboard and visualizations for.
+
+Use Docker-compose to start the containers:
+
+    docker-compose up -d
+    docker-compose logs -f
+
+And we now also need to run the setup script that initializes the ELK system:
+
+    cd ~/etcbd-public/elk
+    ./elk-setup.sh
+
+We now have the metrics tools running, but we need to push some data into the tools before we can explore them.
 
 
 # Connect admintool to ELK
@@ -134,7 +148,7 @@ We have provided a standalone module that can push Apache logs from the admintoo
 
 The shipping of logs is done by filebeat - which has been prepared as a container configured to run as part of the admintool.
 
-* Navigate into the admintool directory (````~/etcbd-public/admintool````) and in the ````docker-compose.yml```` file, uncomment the ````filebeat```` container (remove the leading ````#```` character from all start .
+* Navigate into the admintool directory (`~/etcbd-public/admintool`) and in the `docker-compose.yml` file, uncomment the `filebeat` container (remove the leading `#` character from all start of all lines in that section.
 
 * Tell docker-compose to pull the image for the filebeat container
 
@@ -152,11 +166,11 @@ The shipping of logs is done by filebeat - which has been prepared as a containe
 
 # Explore ELK (metrics tools) #
 
-Now that we have at least the Apache data being pushed into ELK, start exploring the Metrics tools at http://xeap-wsNN.aarnet.edu.au:5601/
+Now that we can have at least the Apache data being pushed into ELK, start exploring the Metrics tools at https://xx-rad1.tein.aarnet.edu.au:9443/
 
-* On first access, you will need to create an index - just push the Create Index button
+At the same time, browse the Admintool at https://xx-rad1.tein.aarnet.edu.au/
 
-* Explore the log messages received - and the fields they are parsed by
+You should be receiving messages from the Admintool into ELK.  Explore the log messages received - and the fields they are parsed by.
 
 
 # Deploying monitoring tools
