@@ -292,18 +292,11 @@ Repeated runs of the script would lead to unpredictable results (some database s
 
 # Confirm all services report OK in icingaweb #
 
-Now explore the monitoring tools at https://xeap-wsNN.aarnet.edu.au:8443/ (and log in as ````admin```` with the password selected above).
+Now explore the monitoring tools at https://xx-rad1.tein.aarnet.edu.au:8443/ (and log in as ````admin```` with the password selected above).
 
 * Please confirm all services are reporting OK.  Troubleshoot any issues.
 
 * Please test sending alerts works all fine - send a test message for one of the services.
-
-* To enable status in your freeradius IRS (manual install), add the following to ````/etc/freeradius/sites-available/eduroam```` (in authorize section): 
-
-        # respond to the Status-Server request.
-        Autz-Type Status-Server {
-            ok
-        }
 
 # Bonus Question: Configuring Google Login for Admintool
 
