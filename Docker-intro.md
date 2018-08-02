@@ -9,7 +9,7 @@ Docker containers run off container images and are managed by the Docker daemon 
 
 * Run a simple interactive container with Debian Linux: 
 
-        docker run -it --name my_debian debian:jessie bash
+        docker run -it --name my_debian debian:stretch bash
 
   * When exiting the shell running in the container, the container stops, but stays on the system (see below)
 
@@ -47,7 +47,7 @@ Docker containers run off container images and are managed by the Docker daemon 
 
 * Remove the local images used above:
 
-        docker rmi httpd:2.4 debian:jessie
+        docker rmi httpd:2.4 debian:stretch
 
 
 Please see https://github.com/wsargent/docker-cheat-sheet for more examples.
