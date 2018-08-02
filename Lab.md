@@ -290,19 +290,6 @@ And in another session, run the setup script:
 Please note: the `icinga-setup.sh` script should be run only once.
 Repeated runs of the script would lead to unpredictable results (some database structures populated multiple times).
 
-# Monitoring the institutional radius server
-
-The monitoring tools (Icinga) come with functionality for monitoring a radius server.
-
-In ````icinga.env````, make sure these parameters (````EDUROAM_*````) match the settings of your institutional freeradius server.  They come with the same defaults - so just make the same changes as on your freeradius server.
-
-After updating this file, restart the containers with:
-
-    cd etcbd-public/icinga
-    docker-compose stop
-    docker-compose up -d
-
-
 # Confirm all services report OK in icingaweb #
 
 Now explore the monitoring tools at https://xeap-wsNN.aarnet.edu.au:8443/ (and log in as ````admin```` with the password selected above).
