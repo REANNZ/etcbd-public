@@ -70,19 +70,18 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * Pick your own admin password: ````ADMIN_PASSWORD````
 * Pick internal DB passwords: ````DB_PASSWORD````, ````POSTGRES_PASSWORD````
   * Generate these with: ````openssl rand -base64 12````
-* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.  Enter your VM hostname: ````xeap-wsNN.aarnet.edu.au````
+* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as.  Enter your VM hostname: `xx--rad1.tein.aarnet.edu.au`
 * ````LOGSTASH_HOST```` is where your metrics will run - the same VM
 * ````EMAIL_HOST```` - configure to use your VM.  Leave other ````EMAIL_*```` settings unset.
 * ````SERVER_EMAIL```` - From: address in outgoing emails.  Pick your own.
 * ````ADMIN_EMAIL```` - administrator email address to receive notifications / approval requests.  Enter your own email address.
 * ````REALM_COUNTRY_CODE```` / ````REALM_COUNTRY_NAME```` - your eduroam country
 * ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
-* ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
-* ````REALM_EXISTING_DATA_URL```` - leave in to import REANNZ data, set to blank to start with an empty database
+* ````REALM_EXISTING_DATA_URL```` - leave blank to start with an empty databas, or set to `https://member.eduroam.net.nz/general/institution.xml` to import REANNZ data
  
 And in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred.
 
-For now, leave out ````GOOGLE_SECRET```` ````GOOGLE_KEY```` - these will be configured in a later exercises to enable login.
+For now, leave out `GOOGLE_SECRET` `GOOGLE_KEY` and `GOOGLE_API_KEY` - these will be configured in a later exercise (to enable login via Google and to properly configure Google Maps).
 
 The ````admintool.env```` is used by both the containers to populate runtime configuration and by a one-off script to populate the database.
 
