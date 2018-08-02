@@ -5,7 +5,7 @@ Docker is a platform for packaging and shipping applications with all of their d
 
 Docker containers run off container images and are managed by the Docker daemon running on the Docker host (either a VM or a physical system).
 
-* Install Docker first by following THESE instructions
+* Install Docker first by following [these instructions](Docker-setup.md)
 
 * Run a simple interactive container with Debian Linux: 
 
