@@ -3,7 +3,7 @@
 
 In these exercises, you should develop familiarity with Docker, Docker-compose, and with the three key Eduroam Ancillary Services: admintool, metrics and monitoring.  You should learn how to customize and deploy these tools with Docker.  And you should get to a running configuration of these tools.
 
-Please note: these instructions were meant only to be used as part of the eduroam tutorial at APAN41.
+Please note: these instructions are meant only to be used as part of the eduroam tutorial at APAN46.
 
 For production deployment of the eduroam tools, please follow the instructions
 in the main [README.md](README.md) file - these instructions are targeted at
@@ -21,7 +21,7 @@ Each of the tools is (at the moment) designed to run in an isolated environment.
 
 * Admintool runs on ports 80 and 443 (HTTP and HTTPS)
 * Monitoring tools run on ports 8080 and 8443 (HTTP and HTTPS)
-* Metrics runs on port 5601 (plain HTTP only)
+* Metrics tools runs on ports 9080 and 9443 (HTTP and HTTPS)
 
 # Docker 101 #
 
