@@ -212,6 +212,8 @@ And in another session, run the setup script:
     cd etcbd-public/icinga
     ./icinga-setup.sh icinga.env
 
+Please note: the `icinga-setup.sh` script should be run only once.
+Repeated runs of the script would lead to unpredictable results (some database structures populated multiple times).
 
 # Monitoring the institutional radius server
 
