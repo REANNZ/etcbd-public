@@ -334,7 +334,7 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 
 # Bonus Question: Become an institutional administrator in Admintool
 
-* Open the admintool in a browser: https://xeap-wsNN.aarnet.edu.au/
+* Open the admintool in a browser: https://xx-rad1.tein.aarnet.edu.au/
 
 * Navigate to Manage => Google and log in with your Google account.
 
