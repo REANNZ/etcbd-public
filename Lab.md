@@ -149,7 +149,7 @@ The shipping of logs is done by filebeat - which has been prepared as a containe
 
 * And watch the logs:
 
-         docker-compose logs
+         docker-compose logs -f
 
 
 # Explore ELK (metrics tools) #
@@ -297,7 +297,7 @@ You can now re-deploy it to run with Docker-compose and link into the metrics to
 
 * Now check your radius server and the filebeat container are operating normally:
 
-        docker-compose logs
+        docker-compose logs -f
 
 * Check monitoring is still reporting your radius server as operational: https://xeap-wsNN.aarnet.edu.au:8443/
 

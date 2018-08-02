@@ -592,7 +592,7 @@ After updating the files driving the tools:
 * Go into the respective directory (repeat for all of the three tools the updates apply to): `cd admintool`
 * Pull the updated container images: `docker-compose pull`
 * Restart the containers from updated images: `docker-compose up -d`
-* Optionally, watch the logs (leave with Ctrl-C): `docker-compose logs`
+* Optionally, watch the logs (leave with Ctrl-C): `docker-compose logs -f`
 
 # Troubleshooting
 
@@ -603,7 +603,7 @@ For each of the tools, the following command would force-fully re-create the con
     docker-compose stop
     docker-compose rm --force
     docker-compose up -d
-    docker-compose logs
+    docker-compose logs -f
 
 The tools keep their external state in Docker volumes - with the bulk of the state being in the postgres database (for Admintool and Monitoring) and ElasticSearch (Metrics).
 
@@ -613,7 +613,7 @@ For the Admintool, the database volume can be deleted while the containers are s
     docker-compose rm --force
     docker volume rm admintool_postgres-data
     docker-compose up -d
-    docker-compose logs
+    docker-compose logs -f
 
 Note that after this step, it would be necessary to run the `admintool-setup.sh` script again to initialize the new blank database.
 
@@ -623,7 +623,7 @@ Similarly, for the Monitoring tool, the steps to delete the database volume (whi
     docker-compose rm --force
     docker volume rm icinga_postgres-data
     docker-compose up -d
-    docker-compose logs
+    docker-compose logs -f
 
 And again, it would be necessary to run the `icinga-setup.sh` script again to initialize the new blank database.
 
@@ -633,7 +633,7 @@ And likewise, for the Metrics tool, the steps to delete the elasticsearch data v
     docker-compose rm --force
     docker volume rm elk_elasticsearch-data
     docker-compose up -d
-    docker-compose logs
+    docker-compose logs -f
 
 And in this case, it would be necessary to create the index from Kibana again on first access.
 

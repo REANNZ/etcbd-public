@@ -27,7 +27,7 @@ Once you customize the variables (the env_file makes them separate from the code
 
 * Watch the logs with:
 
-        docker-compose logs
+        docker-compose logs -f
 
 (and again escape with Ctrl-C - this time just detaching)
 
