@@ -643,18 +643,18 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 
 * Start at http://console.developers.google.com/
 * Create a new project
-* From the main menu, select the API Manager
-* In the list of available Google APIs, search for ````Google+ API```` and Enable this for your project.
-* In the top-level API manager menu, select Credentials
-* Configure the OAuth consent screen with how the application should be described to the user (at least, set Product name)
-* Create a new Credential as an OAuth Client ID for a web application
-* Add the Authorized redirect URI for your application - the form is (substitute your real hostname here):
+* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
+* In the list of available Google APIs, search for `Google+ API` and `Enable` this API for your project.
+* From the main menu (again, top-left corner), select again `APIs & Services` and then `Credentials`
+* Configure the `OAuth consent screen` with how the application should be described to the user (at least, set Product name)
+* On the `Credentials` tab, create a new `Credential` as an `OAuth Client ID` for a web application
+* Add the Authorized redirect URI for your application - the URL should have the following form is (substitute your real hostname here):
 
         https://admin.example.org/accounts/complete/google-oauth2/
 
 * After saving, this gives you the Client ID and secret (use these as the GOOGLE_KEY and GOOGLE_SECRET)
 
-# Appendix: Google API keys
+# Appendix: Google Maps API keys
 
 The Admintool uses the Google Maps Javascript API to render the service
 location points on maps provided by Google.
@@ -672,8 +672,8 @@ details about the API change itself in the original
 To create a Google Maps API key:
 * Start at the Google Developer Console: http://console.developers.google.com/
 * Open the project you created earlier for configuring Google Login (or create a new one if you have not configured Google Login yet).
-* From the main menu, select the API Manager
-* Search for ````Google Maps JavaScript API```` and Enable this for your project.
+* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
+* Search for `Google Maps JavaScript API` and `Enable` this for your project.
 * In the navigation side-bar on the left, select Credentials
 * From `Create credentials`, select `API key` and then `Browser key`
 * Pick a name for your credential - e.g., `Browser key - Google Maps JavaScript API`

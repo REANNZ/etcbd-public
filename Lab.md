@@ -249,14 +249,14 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 
 * Start at http://console.developers.google.com/
 * Create a new project
-* From the main menu, select the API Manager
-* In the list of available Google APIs, search for ````Google+ API```` and Enable this for your project.
-* In the top-level API manager menu, select Credentials
-* Configure the OAuth consent screen with how the application should be described to the user (at least, set Product name)
-* Create a new Credential as an OAuth Client ID for a web application
-* Add the Authorized redirect URI for your application - the form is (substitute your real hostname here):
+* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
+* In the list of available Google APIs, search for `Google+ API` and `Enable` this API for your project.
+* From the main menu (again, top-left corner), select again `APIs & Services` and then `Credentials`
+* Configure the `OAuth consent screen` with how the application should be described to the user (at least, set Product name)
+* On the `Credentials` tab, create a new `Credential` as an `OAuth Client ID` for a web application
+* Add the Authorized redirect URI for your application - the URL should have the following form is (substitute your real hostname here):
 
-        https://xeap-wsNN.aarnet.edu.au/accounts/complete/google-oauth2/
+        https://xx-rad1.tein.aarnet.edu.au/accounts/complete/google-oauth2/
 
 * After saving, this gives you the Client ID and secret (use these as the GOOGLE_KEY and GOOGLE_SECRET)
 
