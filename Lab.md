@@ -95,6 +95,8 @@ And in another session, run the setup script:
     cd etcbd-public/admintool
     ./admintool-setup.sh admintool.env
 
+Please note: the `admintool-setup.sh` script should be run only once.
+Repeated runs of the script would lead to unpredictable results (some database structures populated multiple times).
 
 # Admintool lab exercise: explore admintool and add your own institution.
 
