@@ -3,7 +3,7 @@
 
 * Do not install Docker from Ubuntu repositories - these are lagging behind current Docker releases
 
-* Instead, follow the Docker CE Ubuntu Installation [https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository](instructions)
+* Instead, follow the Docker CE Ubuntu Installation [instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository)
 
 * For Ubuntu 18.04 (Bionic), this means the following steps (running them as `root` - e.g., via `sudo -i`):
 
@@ -41,5 +41,5 @@ Official Docker Compose Install manual is at https://docs.docker.com/compose/ins
     curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m`
     chmod +x /usr/local/bin/docker-compose
 
-(The URL being fetched is actually https://github.com/docker/compose/releases/download/1.6.2/docker-compose-Linux-x86_64 and it fetches an ELF-64 binary)
+(The URL being fetched is actually https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64 and it fetches an ELF-64 binary)
 
