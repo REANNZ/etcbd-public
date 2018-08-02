@@ -1,8 +1,14 @@
 #!/bin/bash
 
 if [ $# -eq 0 ] ; then
-    echo "Usage: $0 environment_file(s).."
-    exit 1
+    if [ -f "admintool.env" ] ; then
+        echo "Defaulting to admintool.env"
+        $0 admintool.env
+	exit
+    else
+        echo "Usage: $0 environment_file(s).."
+        exit 1
+    fi
 fi
 # Load the local deployment environment variables
 # (and filtre the syntax to quote the values first)
