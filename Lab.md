@@ -40,23 +40,20 @@ Run the following commands as root - e.g., via ````sudo -s````:
 
         apt-get install postfix
 
-* When prompted, enter:
+* When prompted:
+  * Select `Internet Site` (direct mail delivery)
+  * And for `System mail name`, enter the hostname of your system - e.g.:
 
-        Mail host name: xeap-ws23.aarnet.edu.au
+          Mail host name: xx-rad1.tein.aarnet.edu.au
 
-* Edit ````/etc/postfix/main.cf```` and add ````172.17.0.0/16```` to ````mynetworks````
+* Edit ````/etc/postfix/main.cf```` and add ````172.16.0.0/12```` to ````mynetworks```` (to permit all internal virtual networks created by Docker to send mail via this server)
 * Reload postfix:
 
         service postfix reload
 
+* Allow Docker containers to reach SMTP on the VM:
 
-Change the system hostname from the default template ````ansible````:
-* Edit ````/etc/hostname```` and change it to ````xeap-wsNN.aarnet.edu.au````
-* Edit ````/etc/hosts```` and also replace ````ansible```` with your VM's hostname.
-* Apply the change: run:
-
-        hostname --file /etc/hostname
-
+        ufw allow proto tcp from 172.16.0.0/12 to any port 25
 
 # Eduroam ancillary tools: Basic setup
 
