@@ -1,35 +1,44 @@
 
 # Install Docker #
 
-* Do not install Docker from Ubuntu repositories - these are really ancient versions (1.4 / 1.5)
+* Do not install Docker from Ubuntu repositories - these are lagging behind current Docker releases
 
-* Instead, follow https://docs.docker.com/engine/installation/ubuntulinux/
+* Instead, follow the Docker CE Ubuntu Installation [https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository](instructions)
 
-* For Ubuntu 14.04 (Trusty), this means the following steps:
+* For Ubuntu 18.04 (Bionic), this means the following steps (running them as `root` - e.g., via `sudo -i`):
+
+  * Pre-requisite: update packages on your system:
+
+          apt-get update
+          apt-get upgrade
+          apt-get autoremove
+
+  * Install packages needed for adding a new (signed) repository:
+
+          apt-get install curl ca-certificates gnupg software-properties-common
+
+  * Add the Docker GPG key:
+
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
   * Add the Docker package repository:
 
-          apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-          echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
+          add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
           apt-get update
 
-  * Make sure the extra kernel modules package (with the AUFS driver) is installed:
+  * Install Docker CE itself (this also auto-starts the daemon)
 
-          apt-get install linux-image-extra-$(uname -r)
+          apt-get install docker-ce
 
-  * Install Docker Engine itself (this also auto-starts the daemon)
+  * Add your user account (`admin`) to Docker group for direct access:
 
-          apt-get install docker-engine
-
-  * Add your user account to Docker group for direct access:
-
-          usermod -aG docker xeap
+          usermod -aG docker admin
 
 # Install Docker Compose #
 
-Official Docker Compose Install manual at https://docs.docker.com/compose/install/ redirects Ubuntu users to https://github.com/docker/compose/releases ...  where the command to run is:
+Official Docker Compose Install manual is at https://docs.docker.com/compose/install/ ...  where the command to run is:
 
-    curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m`
+    curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m`
     chmod +x /usr/local/bin/docker-compose
 
 (The URL being fetched is actually https://github.com/docker/compose/releases/download/1.6.2/docker-compose-Linux-x86_64 and it fetches an ELF-64 binary)
