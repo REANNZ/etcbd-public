@@ -87,7 +87,8 @@ The ````admintool.env```` is used by both the containers to populate runtime con
 
 Use Docker-compose to start the containers:
 
-    docker-compose up
+    docker-compose up -d
+    docker-compose logs -f
 
 And in another session, run the setup script:
 
@@ -97,11 +98,12 @@ And in another session, run the setup script:
 
 # Admintool lab exercise: explore admintool and add your own institution.
 
-* Navigate to http://xeap-wsNN.aarnet.edu.au/ - you will need to accept the SSL certificate warning.
+* Navigate to https://xx-rad1.tein.aarnet.edu.au/ - you will need to accept the SSL certificate warning.
   * This gives you the user view.
   * Explore.
+  * Do not worry about the Google Maps "Development only" warning - we will fix this later by adding an API key.
 
-* Navigate to https://xeap-wsNN.aarnet.edu.au/admin/ and log in with the admin username and password as selected above.
+* Navigate to https://xx-rad1.tein.aarnet.edu.au/admin/ and log in with the admin username and password as selected above.
   * This gives you the NRO admin view.
   * As the NRO operator, create your own institution.
 
