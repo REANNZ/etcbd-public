@@ -6,6 +6,11 @@ docker exec elasticsearch curl -Ss -HContent-Type:application/json -XPOST 'local
 echo "Silencing JVM GC logs"
 docker exec elasticsearch curl -Ss -HContent-Type:application/json -XPUT elasticsearch:9200/_clu'{ "persistent" : { "logger.org.elasticsearch.monitor.jvm.JvmGcMonitorService" : "WARN" } }'
 
+if [ "$1" == "--force" ] ; then
+    echo "Force upgrade - deleting .kibana index"
+    docker exec elasticsearch curl -Ss -XDELETE http://127.0.0.1:9200/.kibana
+fi
+
 echo "Loading dashboards and visualizations..."
 docker exec kibana /load_dashboards.sh
 echo "...done"
