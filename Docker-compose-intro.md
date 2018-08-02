@@ -13,7 +13,7 @@ Docker-compose sits on top of docker and creates high-level abstractions - servi
 
 In our deployments, customizable parameters are in separate environment variable files referenced from the docker-compose files.
 
-Once you customize the variables (the env_file makes them separate from the code), you can then:
+Once you customize the variables (having them in a separate file referenced via `env_file` makes them separate from the code), you can then:
 
 * Start everything up (interactively) and watch the console:
 
@@ -38,7 +38,7 @@ Once you customize the variables (the env_file makes them separate from the code
 
 * Up again:
 
-        docker-compose up
+        docker-compose up -d
 
 * Fetch updated images:
 
@@ -46,7 +46,7 @@ Once you customize the variables (the env_file makes them separate from the code
 
 * Update (re-create) the running containers:
 
-        docker-compose up
+        docker-compose up -d
 
-Note: ````docker-compose up```` updates (re-creates) the container whenever anything changes, otherwise just make sure the container is started. So if a new image is ready (pulled) or the environment variables file has changed, it would get re-created.
+Note: ````docker-compose up -d```` updates (re-creates) the container whenever anything changes, otherwise just make sure the container is started. So if a new image is ready (pulled) or the environment variables file has changed, it would get re-created.
 
