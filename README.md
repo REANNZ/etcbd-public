@@ -201,7 +201,7 @@ There is a number of configuration variables in `admintool.env` that control how
 * `ICINGA_CONF_REQUEST_CUI`: should be set to `True` if the eduroam login checks should request the Chargeable User Identity (CUI) attribute (Optional, defaults to False)
 * `ICINGA_CONF_OPERATOR_NAME`: the Operator Name to use in the eduroam login checks (Optional, no operator name is passed if not specified).
 * `ICINGA_CONF_VERBOSITY`: the verbosity level in eduroam login checks.  (Optional, defaults to 1.  Level of at least 1 is needed to see the CUI returned by the check.  Values can range from 0 to 2).
-* `ICINGA_CONF_GENERATE_INSTSERVER_CHECKS`: Should the generated configuration include the institutional server checks? (Optional, defaults to True).  This setting gives the option to disable the institional server checks if not desired.
+* `ICINGA_CONF_GENERATE_INSTSERVER_CHECKS`: Should the generated configuration include the institutional server checks? (Optional, defaults to False).
 * `ICINGA_CONF_NOTIFY_INST_CONTACTS`: Should the generated configuration notify institutional contacts - for server and monitored realm checks? (Optional, defaults to True).  This setting gives the option to disable all Notifications sent to institional contacts if not desired - in which case alerts would go only to the nominated NRO email address given in the Monitoring tools configuration.
 
 * Update Admintool to pick up the changed configuration:
@@ -210,7 +210,7 @@ There is a number of configuration variables in `admintool.env` that control how
 
 As a final step, prepare the account Icinga would use to create the configuration:
 
-* Log into the Admintool at https://admin.example.org/admin/ as the administrator (with the username and password created earlier).
+* Log into the Admintool admin interface at https://admin.example.org/admin/ as the administrator (with the username and password created earlier).
 * Select `Users` from the list of tables to administer.
 * Use the `Add user` button to bring up the user creation form.
 * Enter the username and password
@@ -242,7 +242,7 @@ All of the data can be entered at https://admin.example.org/admin/
 * Add an *Institution Details* object: select the Institution it belongs to, enter Address details and select at least one Contact.
 * Add an *Institution Server*: select the institution (or possibly more) the server belongs to, server type, a descriptive name and the host name, the Radius secret, and select whether the server responds to Status messages.
 * Add the *Institution's Realms*: enter the Realm name, select the Institution and select the institution's radius server that the NRO radius server should be proxying to.
-* Add an *Institution Monitored Realm* entry: select the Instituion's Realm and select "Local account authentication" as the Monitor type (the only available entry).
+* Add an *Institution Monitored Realm* entry: select the Institution's Realm and select "Local account authentication" as the Monitor type (the only available entry).
 * Add a *Monitored Realm (local authn)* entry: select the Monitored Realm and select the EAP method, phase2 authentication, username and password to match the institution's radius server settings.
 
 Entering all of the above should be sufficient for the Admintool to generate monitoring checks for Icinga - both via the NRO servers and directly through the Institution's servers.
