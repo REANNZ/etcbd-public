@@ -211,11 +211,11 @@ The generated configuration will:
 There is a number of configuration variables in `admintool.env` that control how the configuration will be generated:
 * `NRO_SERVERS` specifies the list of NRO servers (short identifiers) - example: `NRO_SERVERS=server1 server2`.  In this lab, we only have one server, so we'll go with just `NRO_SERVERS=nrad1`, using `nrad1` as the short identifier.
 * For each server, there should be a set of variables using the short server identifier as part of the name:
-  * `NRO_SERVER_HOSTNAME_serverid`: the hostname (or IP address) to use for server checks
-  * `NRO_SERVER_SECRET_servererid`: the Radius secret to use with the server
-  * `NRO_SERVER_PORT_serverid`: the Radius port number to use with this server (Optional, defaults to 1812)
-  * `NRO_SERVER_STATUS_serverid`: should be set to `True` if the server supports Radius Status checks (Optional, defaults to False)
-* `ICINGA_CONF_REQUEST_CUI`: should be set to `True` if the eduroam login checks should request the Chargeable User Identity (CUI) attribute (Optional, defaults to False)
+  * `NRO_SERVER_HOSTNAME_serverid`: the hostname (or IP address) to use for server checks (so `NRO_SERVER_HOSTNAME_nrad1=xx-nrad1.tein.aarnet.edu.au`)
+  * `NRO_SERVER_SECRET_servererid`: the Radius secret to use with the server (so e.g. `NRO_SERVER_SECRET_nrad1=radius-secret` - has to match your `radsecproxy.conf`)
+  * `NRO_SERVER_PORT_serverid`: the Radius port number to use with this server (Optional, defaults to 1812 ... so you can skip this one)
+  * `NRO_SERVER_STATUS_serverid`: should be set to `True` if the server supports Radius Status checks (Optional, defaults to False).  Radsecproxy supports Status messages, so `NRO_SERVER_STATUS_nrad1=True`
+* `ICINGA_CONF_REQUEST_CUI`: should be set to `True` if the eduroam login checks should request the Chargeable User Identity (CUI) attribute (Optional, defaults to True)
 * `ICINGA_CONF_OPERATOR_NAME`: the Operator Name to use in the eduroam login checks (Optional, no operator name is passed if not specified).
 * `ICINGA_CONF_VERBOSITY`: the verbosity level in eduroam login checks.  (Optional, defaults to 1.  Level of at least 1 is needed to see the CUI returned by the check.  Values can range from 0 to 2).
 * `ICINGA_CONF_GENERATE_INSTSERVER_CHECKS`: Should the generated configuration include the institutional server checks? (Optional, defaults to False).
@@ -258,10 +258,13 @@ All of the data can be entered at https://xx-rad1.tein.aarnet.edu.au/admin/
 * Add an *Institution* - select the NRO Realm, entity type and enter the English name of the Institution.
 * Add at least one *Contact* for the institution (not that Contacts can be reused across institutions).
 * Add an *Institution Details* object: select the Institution it belongs to, enter Address details and select at least one Contact.
-* Add an *Institution Server*: select the institution (or possibly more) the server belongs to, server type, a descriptive name and the host name, the Radius secret, and select whether the server responds to Status messages.
 * Add the *Institution's Realms*: enter the Realm name, select the Institution and select the institution's radius server that the NRO radius server should be proxying to.
 * Add an *Institution Monitored Realm* entry: select the Institution's Realm and select "Local account authentication" as the Monitor type (the only available entry).
-* Add a *Monitored Realm (local authn)* entry: select the Monitored Realm and select the EAP method, phase2 authentication, username and password to match the institution's radius server settings.
+* Add a *Monitored Realm (local authn)* entry: select the Monitored Realm and select the EAP method, phase2 authentication, username and password to match the institution's radius server settings.  For the `freeradius-eduroam` server deployed during this workshop, use:
+  * EAP-Method: `PEAP`
+  * Phase2: `MS-CHAPv2`
+  * Username: fully scoped username, so e.g. testuser@xeap.sg
+  * Password: as per your freeradius server settings.
 
 Entering all of the above should be sufficient for the Admintool to generate monitoring checks for Icinga - both via the NRO servers and directly through the Institution's servers.
 
