@@ -37,6 +37,7 @@ services:
     image: reannz/elk_kibana:latest
     container_name: kibana
     environment:
+      ELASTICSEARCH_REQUESTTIMEOUT: 300000
       ELASTICSEARCH_URL: http://elasticsearch:9200
       LOGGING_QUIET: "true"
     env_file:
