@@ -343,37 +343,26 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 * Now revisit the admin tool and through the manage menu, manage your own institution.
 
 
-# Bonus Question: Connect radius server to ELK (switch to docker-compose)
+# Bonus Question: Connect national radius server to ELK
 
-You have earlier deployed the institutional radius server with Docker.
+You have earlier deployed the national radius server with Docker.
 
-You can now re-deploy it to run with Docker-compose and link into the metrics tools - so that radius logs get pushed into the metrics tools.
+You can now link it into the metrics tools - so that radius logs get pushed into the metrics tools.
 
-* Shut down the existing freeradius-docker container:
+We have prepapred the log collection tool `filebeat` configured for collecting radsecproxy logs as a Docker container - and also prepared a `docker-compose.yml` file setting all the required parameters.  The `docker-compose.yml` file is included in the same git repository `etcbd-public` which you've already used on the other server for deploying the Ancillary services - but we now need it on the national radius server.
 
-        docker stop freeradius-docker
-        docker rm -v freeradius-docker
+* Clone this repository here:
 
-* Clone the eduroam-freeradius-docker repository and navigate into th AncillaryToolIntegration directory there:
+        git clone https://github.com/REANNZ/etcbd-public.git
+        cd etcbd-public/filebeat-radsecproxy/
 
-        git clone https://github.com/spgreen/eduroam-freeradius-docker.git
-        cd eduroam-freeradius-docker/AncillaryToolIntegration
+* Customize `filebeat-radsecproxy.env`:
+  * Set `LOGSTASH_HOST` to the name of the host where your ELK deployment is running - so `xx-rad1.tein.aarnet.edu.au` in this case.
+  * Set `RADIUS_SERVER_HOSTNAME` to the name of the host where radsecproxy is running - so this host (`xx-nrad1.tein.aarnet.edu.au`).  (This will be used in the metadata of the log messages).
 
-* Customize ````freeradius-eduroam.env```` with the same parameters as what you've done earlier in ````eduroam-freeradius-docker-public/restart_eduroamFreeRADIUS.sh````
-  * Hint: you can see the differences by opening an additional ssh session and running
-
-          cd eduroam-freeradius-docker-public
-          git diff
-
-* Customize ````filebeat-radius.env```` - set:
-  * ````LOGSTASH_HOST```` to the hostname of your metrics server - the same VM name, xeap-wsNN.aarnet.edu.au
-  * ````RADIUS_SERVER_HOSTNAME```` to what hostname should the radius server logs be associated with.  You can again enter your VM name, xeap-wsNN.aarnet.edu.au
-
-* And in ````global-env.env````, customize system-level ````TZ```` and ````LANG```` as preferred - or you can copy over global.env from admintool:
-
-        cp ~/etcbd-public/admintoool/global-env.env .
-
-  * Note: the timezone setting here will be used to interpret the timezone on the radius logs.
+* And in `global-env.env`:
+  * Set `TZ` to the same timezone as your radsecproxy.  This is important for getting timestamps processed correctly.
+  * And set `LANG` to your preferred locale (or you can leave this one as is).
 
 * Use Docker-compose to start the containers:
 
@@ -383,9 +372,13 @@ You can now re-deploy it to run with Docker-compose and link into the metrics to
 
         docker-compose logs -f
 
-* Check monitoring is still reporting your radius server as operational: https://xeap-wsNN.aarnet.edu.au:8443/
+* Check metrics now see the usage data from your server: https://xx-rad1.tein.aarnet.edu.au:9443/
+  * Explore raw data ("Discover")
+  * Visualizations
+  * Dashboards
+  * NOTE: you may have to make Kibana rescan the available after ingesting first set of data.  While this can be also done inside Kibana, you can also re-run the setup script (on the host where the metrics tools are deployed)  with:
 
-* Check metrics now see the usage data from your server: http://xeap-wsNN.aarnet.edu.au:5601/
+          ./elk-setup.sh --force
 
 
 
