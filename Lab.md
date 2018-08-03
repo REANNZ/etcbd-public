@@ -267,7 +267,7 @@ Entering all of the above should be sufficient for the Admintool to generate mon
 
 # Deploying monitoring tools
 
-Modify the ````icinga.env```` file with deployment parameters - override at least the following values:
+Modify the ````icinga.env```` file (in `etcbd-public/icinga`) with deployment parameters - override at least the following values:
 
 * Pick your own admin password: ````ICINGAWEB2_ADMIN_PASSWORD````
 * Pick internal DB passwords: ````ICINGA_DB_PASSWORD````, ````ICINGAWEB2_DB_PASSWORD````, ````POSTGRES_PASSWORD````
@@ -292,10 +292,11 @@ Additionally, in ````global-env.env````, customize system-level ````TZ```` and `
     cd etcbd-public/icinga
     cp ../admintoool/global-env.env .
 
-Use Docker-compose to start the containers:
+Use Docker-compose to start the containers and watch the logs:
 
     cd etcbd-public/icinga
-    docker-compose up
+    docker-compose up -d
+    docker-compose logs -f
 
 And in another session, run the setup script:
 
