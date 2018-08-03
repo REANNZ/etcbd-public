@@ -218,8 +218,9 @@ As a final step, prepare the account Icinga would use to create the configuratio
   * We recommend generating the password, e.g. with `openssl rand -base64 12``
 * Use the `Save and continue editing` button to get to the next screen with additional details
   * In the list of `Available user permissions`, select all three `edumanage | Monitored Realm (local authn)` permissions and add them to the `Chosen user permissions`.  (The permission to access the monitoring credentials is internally used to represent as permission to access the monitoring configuration).
+  * Select `Save` to store the permissions.
 * We also recommend to create a `User Profile` entry for this user account - to keep the internal database consistent with assumptions the DjNRO code makes:
-  * Select `User Profiles` from the list of tables to administer.
+  * Select `User Profiles` from the list of tables to administer (navigate back to the `Home` screen to get the list of tables).
   * Use the `Add User Profile` button to bring up the user profile creation form.
   * Select the user just created in the above step as the user.
   * Select an institution (the NRO organisation would do) to associate the user with.
