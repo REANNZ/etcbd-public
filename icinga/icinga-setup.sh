@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ $# -eq 0 ] ; then
+    if [ -f "icinga.env" ] ; then
+        echo "Defaulting to icinga.env"
+        $0 icinga.env
+	exit
+    else
+        echo "Usage: $0 environment_file(s).."
+        exit 1
+    fi
+fi
 # Load the local deployment environment variables
 # (and filtre the syntax to quote the values first)
 eval $( cat "$@" | grep -v '^ *#' | sed 's/=\(.*\)/="\1"/' )
