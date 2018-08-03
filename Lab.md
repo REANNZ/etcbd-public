@@ -131,7 +131,16 @@ Modify the `elk.env` file with deployment parameters - override at least the fol
 * `LOCAL_COUNTRY`: two-letter country code of the local country (for metrics to identify domestic and international visitors and remote sites).
 * `INST_NAMES`: white-space delimited list of domain names of institutions to generate per-instititon dashboard and visualizations for.
 
-Use Docker-compose to start the containers:
+ElasicSearch needs one system-level setting tuned: `vm.max_map_count` needs to
+be increased from the default 65530 to 262144.
+Without this setting in place, ElasticSearch fails to start.
+To change the setting both in the currently booted system and to make it apply
+after a reboot, run (as root):
+
+    sysctl -w vm.max_map_count=262144
+    echo "vm.max_map_count = 262144" > /etc/sysctl.d/70-elasticsearch.conf
+
+And now, back in `etcbd-public/elk`, use Docker-compose to start the containers:
 
     docker-compose up -d
     docker-compose logs -f
