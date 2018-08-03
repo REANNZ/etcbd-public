@@ -209,7 +209,7 @@ The generated configuration will:
 * For each Institutional Radius server, the Notifications would also go to all Contacts associated with all Institutions the server is associated with.
 
 There is a number of configuration variables in `admintool.env` that control how the configuration will be generated:
-* `NRO_SERVERS` specifies the list of NRO servers (short identifiers) - example: `NRO_SERVERS=server1 server2`.  In this lab, we only have one server, so we'll go with just `NRO_SERVERS=nrad`, using `nrad` as the short identifier.
+* `NRO_SERVERS` specifies the list of NRO servers (short identifiers) - example: `NRO_SERVERS=server1 server2`.  In this lab, we only have one server, so we'll go with just `NRO_SERVERS=nrad1`, using `nrad1` as the short identifier.
 * For each server, there should be a set of variables using the short server identifier as part of the name:
   * `NRO_SERVER_HOSTNAME_serverid`: the hostname (or IP address) to use for server checks
   * `NRO_SERVER_SECRET_servererid`: the Radius secret to use with the server
