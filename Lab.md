@@ -143,6 +143,11 @@ And we now also need to run the setup script that initializes the ELK system:
 
 We now have the metrics tools running, but we need to push some data into the tools before we can explore them.
 
+NOTE: the setup script also creates an *index pattern* in Kibana, telling Kibana where to find your data.  However, this may fail if there are no data in ElasicSearch yet, so you may have to reinitialize Kibana after some initial data is ingested into ElasticSearch.  You can re-run the setup script with:
+
+    ./elk-setup.sh --force
+
+Note that the `--force` flag deletes all Kibana settings - but the initial ones get loaded again by the setup script.  And the actual data in ElasicSearch stays intact.
 
 # Connect admintool to ELK
 

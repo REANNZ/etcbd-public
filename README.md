@@ -338,15 +338,22 @@ Run the setup script:
 Please note: the `elk-setup.sh` script may be run multiple times (contrary to
 the other setup scripts).
 This script pushes a small set of predefined visualizations and dashboards into
-the Metrics tool (the Kibana web application) - and also applies a persistent
-setting to the elasticsearch cluster to remove the limit on queued search
-queries (the default limit causes some Kibana visualization to break).
+the Metrics tool (the Kibana web application) - and also applies some setting to elasticsearch (disable replicas, tune down logging).
 The only environment variables this script depends on are `LOCAL_COUNTRY` and `INST_NAMES`: to
 propagage a change to these variable, it is necessary to first restart the
 containers (`docker-compose up -d`), then re-run the setup script.
 (If institutions were *removed* from INST_NAMES, it may be necessary to
 manually remove the dashboard and visualizations created for these
 institutions).
+
+The setup script also creates an *index pattern* in Kibana, telling Kibana
+where to find your data.  However, this may fail if there are no data in
+ElasicSearch yet, so you may have to reinitialize Kibana after some initial
+data is ingested into ElasticSearch.  You can re-run the setup script with:
+
+    ./elk-setup.sh --force
+
+Note that the `--force` flag deletes all Kibana settings - but the initial ones get loaded again by the setup script.  And the actual data in ElasicSearch stays intact.
 
 ## Installing proper SSL certificates for Metrics tools
 
