@@ -352,6 +352,40 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
         docker-compose up -d
 
 
+# Bonus Question: Google Maps API keys
+
+The Admintool uses the Google Maps Javascript API to render the service
+location points on maps provided by Google.
+
+As of June 22, 2016, the Google Maps Javascript API now requires an API key.
+Any new services deployed after this date (as determined by the domain
+registration date) require an API key.  On such services, without an API key,
+the map view displays an error and the Javascript console shows messages
+indicating an API key is missing.  However, even if your service is working
+without an API key, we strongly recommend to configure one, as Google may in
+the future decide to make this mandatory for all services.  You can find more
+details about the API change itself in the original
+[Google Announcement](http://googlegeodevelopers.blogspot.co.nz/2016/06/building-for-scale-updates-to-google.html).
+
+To create a Google Maps API key:
+* Start at the Google Developer Console: http://console.developers.google.com/
+* Open the project you created earlier for configuring Google Login (or create a new one if you have not configured Google Login yet).
+* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
+* Search for `Google Maps JavaScript API` and `Enable` this for your project.
+* In the navigation side-bar on the left, select Credentials
+* From `Create credentials`, select `API key` and then `Browser key`
+* Pick a name for your credential - e.g., `Browser key - Google Maps JavaScript API`
+* Enter the name of your website as the accepted referrer.  This would be the hostname you entered as SITE_PUBLIC_HOSTNAME in your `admintool.env` - e.g.:
+
+        xx-rad1.tein.aarnet.edu.au
+
+* After saving, the Google Developer Console gives you the API key - configure this in the `GOOGLE_API_KEY` setting in `admintool.env`
+* Restart the admintool with the new setttings:
+
+        cd etcbd-public/admintool
+        docker-compose stop
+        docker-compose up -d
+
 # Bonus Question: Become an institutional administrator in Admintool
 
 * Open the admintool in a browser: https://xx-rad1.tein.aarnet.edu.au/
