@@ -692,7 +692,7 @@ indicating an API key is missing.  However, even if your service is working
 without an API key, we strongly recommend to configure one, as Google may in
 the future decide to make this mandatory for all services.  You can find more
 details about the API change itself in the original
-[Google Announcment](http://googlegeodevelopers.blogspot.co.nz/2016/06/building-for-scale-updates-to-google.html).
+[Google Announcement](http://googlegeodevelopers.blogspot.co.nz/2016/06/building-for-scale-updates-to-google.html).
 
 To create a Google Maps API key:
 * Start at the Google Developer Console: http://console.developers.google.com/
