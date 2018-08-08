@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-08-09: Troubleshooting: list volumes, new name for elasticsearch data volume.
 * 2018-08-03: Misc doc updates: Icinga conf from admin tool, ELK setup, VM settings for ELK, Google credentials.
 * 2018-07-30: Added instructions to create user profile for service accounts in Admintool.
 * 2018-03-02: Added environment variable FEDERATION_DOC_URL.
@@ -657,11 +658,24 @@ And likewise, for the Metrics tool, the steps to delete the elasticsearch data v
 
     docker-compose stop
     docker-compose rm --force
-    docker volume rm elk_elasticsearch-data
+    docker volume rm elk_elasticsearch-data-6
     docker-compose up -d
     docker-compose logs -f
 
 And in this case, it would be necessary to create the index from Kibana again on first access.
+
+Note that each of the tools has multiple Docker storage volumes.  The above
+commands include removing just the one which is the main datastore - so which
+when deleted likely removes the source of troubles.
+
+To see the full list of volumes, run:
+
+    docker volume ls
+
+If the above steps did not restore the tools to a clean state, you may also
+remove the additionla volumes (e.g., with logs,...) - please note the volumes
+can only be removed after stopping and removing the containers, as used in the
+above sequences.
 
 # Appendix: Google Login
 
