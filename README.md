@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-08-09: Add documentation for sending logs from radsecproxy to ELK.
 * 2018-08-09: Troubleshooting: list volumes, new name for elasticsearch data volume.
 * 2018-08-03: Misc doc updates: Icinga conf from admin tool, ELK setup, VM settings for ELK, Google credentials.
 * 2018-07-30: Added instructions to create user profile for service accounts in Admintool.
@@ -387,44 +388,82 @@ We leave obtaining the certificates outside the scope of this document.
 
         docker run -v `pwd`:/certs-in -v elk_apache-certs:/apache-certs -it --rm --name debcp debian:jessie cp /certs-in/server.crt /certs-in/server.key /apache-certs
 
-# Feeding Radius logs from NRS servers into metrics tools (ELK)
+# Feeding Radius logs from NRS servers (radsecproxy) into metrics tools (ELK)
 
 The main benefits in having the metrics tools is in using them to explore the usage data from the eduroam Radius servers.
 
 The right collection point is at the NRS servers.
 
 Setting up the NRS servers is outside the scope of this documentation - the prerequisites are that:
-* NRS servers are already deployed.  (Assuming this is done as a standalone deployment, not using Docker)
-* NRS servers are configured to produce the linelog log file.
-* The linelog file includes the Chargeable User Identity (CUI) field.
-* The linelog file location is `/var/log/freeradius/linelog`
+* NRS servers are already deployed with radsecproxy (either manual install or via Docker).  If you are running freeradius instead, pleasee see the next section instead.
+* Radsecproxy has been built with the patch to log OperatorName and CUI.
+* The radsecproxy log file location is `/var/log/radsecproxy/radsecproxy.log`
 
-We then recommend to install filebeat to ship the logs to the ELK stack.  We
+We recommend to install filebeat to ship the logs to the ELK stack.  We
 recommend using Docker to deploy filebeat.  Part of this repository are also
 files instructing Docker to run filebeat.
 
 The steps are:
+* Install Docker CE on the radius (NRS) server.  Please follow our [Docker setup instructions](Docker-setup.md).
+* Check out this repository (same as when deploying the ancillary service as per above) - and go to the `filebeat-radsecproxy` directory:
 
-Install Docker Engine on the radius (NRS) server.  Please follow our [Docker setup instructions](Docker-setup.md).
+        git clone https://github.com/REANNZ/etcbd-public.git
+        cd etcbd-public/filebeat-radsecproxy/
 
-Check out this repository (same as when deploying the ancillary service as per above):
+* Modify the `filebeat-radsecproxy.env` file with deployment parameters:
+  * `LOGSTASH_HOST`: the hostname the metrics tools are reachable at.
+  * `RADIUS_SERVER_HOSTNAME`: the hostname of the radius server.  (This will be used in the metadata of the log messages).
+* And in `global-env.env`:
+  * Set `TZ` to the same timezone as your radsecproxy.  This is important for getting timestamps processed correctly.
+  * And set `LANG` to your preferred locale (or you can leave this one as is).
 
-    git clone https://github.com/REANNZ/etcbd-public
+* Use Docker-compose to start the containers - and watch the logs to confirm it works as it should:
 
-Modify the ````filebeat-radius.env```` file with deployment parameters - override at least the following values:
+        cd etcbd-public/filebeat-radsecproxy
+        docker-compose up -d
+        docker-compose up logs -f
 
-* ````LOGSTASH_HOST````: the hostname the metrics tools are reachable at.
-* ````RADIUS_SERVER_HOSTNAME````: the hostname of the radius server (how it should be reported to the metrics tools)
+* Check metrics now see the usage data from your server: https://xx-rad1.tein.aarnet.edu.au:9443/
+  * Explore raw data ("Discover")
+  * Visualizations
+  * Dashboards
+  * NOTE: you may have to make Kibana rescan the available after ingesting first set of data.  While this can be also done inside Kibana, you can also re-run the setup script (on the host where the metrics tools are deployed)  with:
 
-Additionally, in ````global-env.env````, customize system-level ````TZ````
-and ````LANG```` as preferred - note that the `TZ` setting will be used as the
-timezone to interpret the linelog timestamps, so MUST match the radius server
-timezone.
+          ./elk-setup.sh --force
 
-Use Docker-compose to start the containers:
+# Feeding Radius logs from NRS servers (freeradius) into metrics tools (ELK)
 
-    cd etcbd-public/filebeat-radius
-    docker-compose up -d
+As of August 2018, you should be deploying your NRS servers with radsecproxy - and use the radsecproxy log forwarder documented in the previous section to ship logs to the metrics tools.
+
+In case you are running freeradius on your NRS server, this section provides the freeradius-specific documentation for shipping the logs to the metrics tools.  If you are not running freeradius on your NRS server, please skip this section.
+
+This section assumes that:
+* NRS servers are already deployed.
+* NRS servers are configured to produce the linelog log file.
+* The linelog file includes the Chargeable User Identity (CUI) field.
+* The linelog file location is `/var/log/freeradius/linelog`
+
+We then recommend to install filebeat to ship the logs to the ELK stack.
+We recommend using Docker to deploy filebeat.
+Part of this repository are also files instructing Docker to run filebeat.
+
+The steps are:
+* Install Docker Engine on the radius (NRS) server.  Please follow our [Docker setup instructions](Docker-setup.md).
+* Check out this repository (same as when deploying the ancillary service as per above):
+
+        git clone https://github.com/REANNZ/etcbd-public
+
+* Modify the ````filebeat-radius.env```` file with the following deployment parameters:
+  * `LOGSTASH_HOST`: the hostname the metrics tools are reachable at.
+  * `RADIUS_SERVER_HOSTNAME`: the hostname of the radius server (how it should be reported to the metrics tools)
+* And in `global-env.env`:
+  * Set `TZ` to the same timezone as your radsecproxy.  This is important for getting timestamps processed correctly.
+  * And set `LANG` to your preferred locale (or you can leave this one as is).
+* Use Docker-compose to start the containers - and watch the logs to confirm it works as it should:
+
+        cd etcbd-public/filebeat-radius
+        docker-compose up -d
+        docker-compose logs -f
 
 # Accessing visualizations in metrics tools
 
