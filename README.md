@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-08-03: Misc doc updates: Icinga conf from admin tool, ELK setup, VM settings for ELK, Google credentials.
 * 2018-07-30: Added instructions to create user profile for service accounts in Admintool.
 * 2018-03-02: Added environment variable FEDERATION_DOC_URL.
 * 2017-03-17: Added environment variables for institutional branding.
