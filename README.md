@@ -471,18 +471,15 @@ The steps are:
 After properly setting up the Metrics tool as per above, it should come with a
 small initial set of visualizations and three dashboards.
 
-These can be accessed directly at
+These can be found under the `Dashboards` menu (in the main navigation side-bar) - or alterntively, can also be accessed directly at
 * https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends
 * https://metrics.example.org:9443/app/kibana#/dashboard/Aggregate-Trends-and-Intl-Visitors
 * https://metrics.example.org:9443/app/kibana#/dashboard/InstitutionalTrendAndActivity_<inst-dns-name>
 
-Or alterntively, by navigating in Kibana to `Settings` -> `Objects` ->
-`dashboards` and clicking the "eye" (second) icon next to the dashboard.
-
 In either case, it will be necessary to select an appropriate time range
 through the Kibana time selector tool (top right corner of the browser window).
 
-The visualizations available are:
+The visualizations installed (and used in the above dashboards) are:
 * `IdP-Trend-Aggregate`: graph of daily authentication sessions, split into domestic and international based on the IdP the user authenticated through.
 * `SP-Trend-Aggregate`: graph of daily authentication sessions, split into domestic and international based on the SP the user authenticated to.
 * `VisitorsInclDomestic`: per-country composition of authenticated session based on country of origin (IdP the user authenticated through)
