@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-08-09: Update Google Maps API key documentation (billing now required)
 * 2018-08-09: Add documentation for sending logs from radsecproxy to ELK.
 * 2018-08-09: Troubleshooting: list volumes, new name for elasticsearch data volume.
 * 2018-08-03: Misc doc updates: Icinga conf from admin tool, ELK setup, VM settings for ELK, Google credentials.
@@ -748,17 +749,42 @@ the future decide to make this mandatory for all services.  You can find more
 details about the API change itself in the original
 [Google Announcement](http://googlegeodevelopers.blogspot.co.nz/2016/06/building-for-scale-updates-to-google.html).
 
+Further, as of July 2018, Google requires [Billing to be configured on an account](https://developers.google.com/maps/documentation/javascript/usage-and-billing) to allow increasing the quota from *1 page load per day*.
+
+However, according to the above announcement and the [Maps Platform Pricing Sheet](https://cloud.google.com/maps-platform/pricing/sheet/):
+* Google will apply a credit of $200 each month.
+* Which is equivalent to 28,000 map loads per month.
+
+If you are concerned about incurring costs on your account, you can set the quota to a conservative value (like 900 page loads per day), making sure there would not be any charge actually billed.
+
 To create a Google Maps API key:
 * Start at the Google Developer Console: http://console.developers.google.com/
 * Open the project you created earlier for configuring Google Login (or create a new one if you have not configured Google Login yet).
-* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
-* Search for `Google Maps JavaScript API` and `Enable` this for your project.
-* In the navigation side-bar on the left, select Credentials
-* From `Create credentials`, select `API key` and then `Browser key`
-* Pick a name for your credential - e.g., `Browser key - Google Maps JavaScript API`
-* Enter the name of your website as the accepted referrer.  This would be the hostname you entered as SITE_PUBLIC_HOSTNAME in your `admintool.env` - e.g.:
+* Enable APIs for you project:
+  * From the main menu (top-left corner), select the `APIs & Services` and then `Library`
+  * Search for `Google Maps JavaScript API` and `Enable` this for your project.
+  * Also search for `Geocoding API` and `Enable` this for your project.
+* We also highly recommend to set a quota for the Maps API calls (see the paragraph about Billing above).
+  * From the main menu (top-left corner), select the `APIs & Services` and then `Dashboard`
+  * From the list of APIs, select `Maps JavaScript API` and then select the `Quotas` tab.
+  * Edit the `Map loads per day` quota and set it to a suitable value - `500` will guarantee no charges under the current pricing regime (leaving also enough for the Geocoding API)
+    * By default, the quota is `unlimited` - so uncheck the `Unlimited` checkbox first.
+    * You may encounter a UI glitch where the text typed into the quota does not show up.  It is, neverless recorded, so after typing in the desired value, `Save` - and check the result.
+  * And also set a quota for `Geocoding API` - again, navigate to the `Dashboard` and from there, pick the `Geocoding API`.
+  * On the `Quotas` tab, scroll down to the `Requests` section (past Premium sections) and change `Requests per day` from `Unlimited` to about `500` - and `Save`.
+* Now create credentials (the API key):
+  * From the main menu (again, top-left corner), select again `APIs & Services` and then `Credentials`
+  * From `Create credentials`, select `API key`
+  * This display the key you would be using - store the value.
+  * Contiue via the `Restrict Key` button to set restrictions on how your key can be used:
+    * Pick a name for your credential - e.g., `Google Maps API key`
+    * Under `Application Restrictions`, select `HTTP referrers (websites)` and enter the name of your website as the accepted referrer.  This would be the hostname you entered as SITE_PUBLIC_HOSTNAME in your `admintool.env` prefixed with `https://` so e.g.:
 
-        admin.example.org
+            https://admin.example.org
 
-* After saving, the Google Developer Console gives you the API key - configure this in the `GOOGLE_API_KEY` setting in `admintool.env`
+ * Under `API Restrictions`, choose which APIs this key can be used for.  From the list of APIs enabled for your project, select `Maps Javascript API` and `Geocoding API`.
+  * `Save`.  And you can now configure this API key in the `GOOGLE_API_KEY` setting in `admintool.env` - and remember to update the Admintool containers with:
+
+          cd etcbc-public/admintool
+          docker-compose up -d
 
