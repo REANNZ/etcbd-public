@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2018-08-09: Added documentation on generating radsecproxy.conf
 * 2018-08-09: Update Google Maps API key documentation (billing now required)
 * 2018-08-09: Add documentation for sending logs from radsecproxy to ELK.
 * 2018-08-09: Troubleshooting: list volumes, new name for elasticsearch data volume.
@@ -791,3 +792,62 @@ To create a Google Maps API key:
           cd etcbc-public/admintool
           docker-compose up -d
 
+# Appendix: Generating radsecproxy.conf from Admintool
+
+The Admintool can generate radsecproxy.conf to be used by the NRO radsecproxy.
+
+This would be done based on Institutional radius server information recorded in the application itself and based on TLR server configuration provided externally (via `admintool.env`)
+
+The generated radsecproxy.conf configuration will:
+* Use a template preamble with generic settings
+* Define an `client` section for each Institutional radius server associated with at least one institution (and having the SP role).
+* Define a `server` section for each Institutional radius server associated with at least one institution (and having the IdP role).
+* Define a `realm` section for each institution's realm and map it to the institution's radius servers (having the IdP role).
+* Include a template blacklist.
+* Finish the blacklist with a "do not forward this countrie's requests upstream" rule, depending on the top-level-domain code for the deployment country.
+* And finally define the `client`, `server` and `realm` section for TLR servers, forwarding ALL requests not caught by the previous rules to the TLR servers.
+
+## Preparing radsecproxy.conf configuration in Admintool
+
+There is a number of configuration variables in `admintool.env` that control how the configuration will be generated:
+* `TLR_SERVERS` specifies the list of TLR servers (short identifiers) - example: `TLR_SERVERS=server1 server2`
+  * This configuration closely follows the `NRO_SERVERS` setting used for Icinga configuration.
+* For each server, there should be a set of variables using the short server identifier as part of the name:
+  * `TLR_SERVER_HOSTNAME_serverid`: the hostname (or IP address) to use for server checks
+  * `TLR_SERVER_SECRET_servererid`: the Radius secret to use with the server
+  * `TLR_SERVER_PORT_serverid`: the Radius port number to use with this server (Optional, defaults to 1812)
+  * `TLR_SERVER_STATUS_serverid`: should be set to `True` if the server supports Radius Status checks (Optional, defaults to False)
+* `RADSECPROXY_CONF_TLD`: top-level domain of the deployment country (used to match all local realms)
+
+* Update Admintool to pick up the changed configuration:
+
+        docker-compose up -d
+
+As a final step, prepare an account that would be used to retrieve the configuration.  The account created for fetching Icinga configuration can be reused for this purpose - if this is not desired, create a separate account following the same instructions as in the [Preparing Icinga configuration in Admintool](README.md#user-content-preparing-icinga-configuration-in-admintool) section.
+
+To allow the account to access the radsecproxy.conf configuration:
+* Log into the Admintool admin interface at https://admin.example.org/admin/ as the administrator (with the username and password created earlier).
+* Select `Users` from the list of tables to administer.
+* Locate the account already created for fetching Icinga configuration and select to edit the account.
+* In the list of `Available user permissions`, select all three `edumanage | Institution Server` permissions and add them to the `Chosen user permissions`.  (The permission to access the Institution Servers is internally used to represent as permission to access the radsecproxy.conf configuration - as it is at the same level of privilege, exposing server radius secrets).
+  * Select `Save` to store the permissions.
+
+Now you should be able to access the monitoring configuration at https://admin.example.org/radsecproxyconf with this account.  (And it is also accessible under the administrator account).
+
+## Entering data for monitoring configuration into the Admintool.
+
+The following information needs to be entered into the Admintool in order to
+generate meaningful radsecproxy.conf configuration.
+Due to dependencies between different data objects, we recommend entering the data in the order given here.
+
+This information is already included in the information entered for the monitoring configuration (assuming institutions' servers were included as well).
+
+All of the data can be entered at https://admin.example.org/admin/
+
+* Add an *Institution* - select the NRO Realm, entity type and enter the English name of the Institution.
+* Add at least one *Contact* for the institution (not that Contacts can be reused across institutions).
+* Add an *Institution Details* object: select the Institution it belongs to, enter Address details and select at least one Contact.
+* Add an *Institution Server*: select the institution (or possibly more) the server belongs to, server type, a descriptive name and the host name, the Radius secret, and select whether the server responds to Status messages.
+* Add the *Institution's Realms*: enter the Realm name, select the Institution and select the institution's radius server that the NRO radius server should be proxying to.
+
+Entering all of the above should be sufficient for the Admintool to generate monitoring checks for Icinga - both via the NRO servers and directly through the Institution's servers.
