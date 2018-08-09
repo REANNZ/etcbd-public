@@ -496,10 +496,16 @@ above visualizations, this is likely because the Kibana Index Pattern was
 created before all of the fields were introduced into Kibana (through having
 log messages arrive via logstash).
 
-The very simple solution is to re-create the Index Pattern: in Kibana, navigate
-to `Settings` -> `Indices` and select `Create` again (and confirm overwriting
-the existing Index Pattern).  This would rescan the indices available and would
-introduce any newly found variables into Kibana.
+The very simple solution is to re-run the `elk-setup.sh` script with the `--force` flag - telling it to delete
+all Kibana settings (stored in the `.kibana` index in elasicsearch) - but the initial Kibana settings
+get loaded again by the setup script.  And the actual data in ElasicSearch stays intact.
+
+    cd etcbc-public/elk
+    ./elk-setup.sh --force
+
+Alternative to that is to re-create the Index Pattern from within Kibana: in Kibana, navigate
+to `Management` -> `Index Patterns` and under the existing `logstash-*` index pattern, select the "Refresh" icon (and confirm the action).
+This would rescan the indices available and would introduce any newly found variables into Kibana.
 
 # Accessing the services
 
