@@ -225,7 +225,7 @@ There is a number of configuration variables in `admintool.env` that control how
 
         docker-compose up -d
 
-As a final step, prepare the account Icinga would use to create the configuration:
+As a final step, prepare the account Icinga would use to retrieve the configuration:
 
 * Log into the Admintool admin interface at https://xx-rad1.tein.aarnet.edu.au/admin/ as the administrator (with the username and password created earlier).
 * Select `Users` from the list of tables to administer.
