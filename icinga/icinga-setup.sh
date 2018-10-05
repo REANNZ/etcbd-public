@@ -12,7 +12,7 @@ if [ $# -eq 0 ] ; then
 fi
 # Load the local deployment environment variables
 # (and filtre the syntax to quote the values first)
-eval $( cat "$@" | grep -v '^ *#' | sed 's/=\(.*\)/="\1"/' )
+eval $( cat "$@" | grep -v '^ *#' | sed -e "s/'/'\"'\"'/g" -e "s/=\\(.*\\)/='\\1'/" )
 
 # Create databases in the Icinga Postgres Instance
 # Run a command in the Postgres database to create the role and database
