@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2019-02-07: Icinga uses SITE_PUBLIC_HOSTNAME also for outgoing notifications.
 * 2018-08-09: Added documentation on generating radsecproxy.conf
 * 2018-08-09: Update Google Maps API key documentation (billing now required)
 * 2018-08-09: Add documentation for sending logs from radsecproxy to ELK.
@@ -260,7 +261,7 @@ Modify the ````icinga.env```` file with deployment parameters - override at leas
 * Pick your own admin password: ````ICINGAWEB2_ADMIN_PASSWORD````
 * Pick internal DB passwords: ````ICINGA_DB_PASSWORD````, ````ICINGAWEB2_DB_PASSWORD````, ````POSTGRES_PASSWORD````
   * Generate these with: ````openssl rand -base64 12````
-* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as
+* ````SITE_PUBLIC_HOSTNAME````: the hostname this site will be visible as (also used by Icinga for outgoing notifications)
 * ````ICINGA_ADMIN_EMAIL````: where to send notifications
 * ````EMAIL_*```` settings to match the local environment (server name, port, TLS and authentication settings)
 * ````EMAIL_FROM```` - From: address to use in outgoing notification emails.
