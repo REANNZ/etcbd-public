@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2019-02-07: Google Login now longer needs Google+ API (being removed).
 * 2019-02-07: Icinga uses SITE_PUBLIC_HOSTNAME also for outgoing notifications.
 * 2018-08-09: Added documentation on generating radsecproxy.conf
 * 2018-08-09: Update Google Maps API key documentation (billing now required)
@@ -728,9 +729,7 @@ To get the Google credential (key+secret) to use in the admintool, do the follow
 
 * Start at http://console.developers.google.com/
 * Create a new project
-* From the main menu (top-left corner), select the `APIs & Services` and then `Library`
-* In the list of available Google APIs, search for `Google+ API` and `Enable` this API for your project.
-* From the main menu (again, top-left corner), select again `APIs & Services` and then `Credentials`
+* From the main menu (top-left corner), select again `APIs & Services` and then `Credentials`
 * Configure the `OAuth consent screen` with how the application should be described to the user (at least, set Product name)
 * On the `Credentials` tab, create a new `Credential` as an `OAuth Client ID` for a web application
 * Add the Authorized redirect URI for your application - the URL should have the following form is (substitute your real hostname here):
