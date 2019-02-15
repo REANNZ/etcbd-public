@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2019-02-15: Remove google-plus from supported login methods.
 * 2019-02-07: Google Login now longer needs Google+ API (being removed).
 * 2019-02-07: Icinga uses SITE_PUBLIC_HOSTNAME also for outgoing notifications.
 * 2018-08-09: Added documentation on generating radsecproxy.conf
@@ -123,7 +124,6 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
          (with the username and password created here), and selecting `Users`
          from the list of tables to administer, and creating the user with the `Add user` button.
     * google-oauth2: Login with a Google account.  Only works for applications registered with Google - see below on enabling Google login.
-    * google-plus: Login with a Google account via Google Plus.  May be used as an alternative to Google OAuth2.  Also only works for applications registered with Google - see below on enabling Google login.
     * yahoo: Login with a Yahoo account.  No registration needed.
     * amazon: Login with an Amazon account.  Registration needed.
     * docker: Login with a Docker account.  Registration needed.
