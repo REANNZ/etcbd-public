@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2020-03-10: Add NRO_ROID, update images for EDB2.
 * 2019-02-15: Remove google-plus from supported login methods.
 * 2019-02-07: Google Login now longer needs Google+ API (being removed).
 * 2019-02-07: Icinga uses SITE_PUBLIC_HOSTNAME also for outgoing notifications.
@@ -98,6 +99,8 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````SERVER_EMAIL````: From: email address to use in outgoing notifications.
 * ````ADMIN_EMAIL````: where to send NRO admin notifications.
 * ````REALM_COUNTRY_CODE```` / ````REALM_COUNTRY_NAME```` - your eduroam country
+* ````NRO_ROID````: Roaming Operator ID, as assigned by eduroam-OT.  Defaults to `<REALM_COUNTRY_CODE>01`.
+ * Note that this option is not included in the file template, add it manually if there is a need to override the default value.
 * ````NRO_INST_NAME````: the name of the institution acting as the National Roaming Operator (NRO)
 * ````NRO_INST_URL````: the URL of the institution acting as the NRO
 * ````NRO_INST_FACEBOOK```` (OPTIONAL): the Social Media (Facebook) handle of the NRO institution
