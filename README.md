@@ -19,6 +19,7 @@ It is possible (and recommended if the resources are available) to run these on 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
 * 2020-03-10: Add NRO_ROID, update images for EDB2.
+* 2020-03-10: Add Places API to Google Maps instructions.
 * 2019-02-15: Remove google-plus from supported login methods.
 * 2019-02-07: Google Login now longer needs Google+ API (being removed).
 * 2019-02-07: Icinga uses SITE_PUBLIC_HOSTNAME also for outgoing notifications.
@@ -771,6 +772,7 @@ To create a Google Maps API key:
   * From the main menu (top-left corner), select the `APIs & Services` and then `Library`
   * Search for `Google Maps JavaScript API` and `Enable` this for your project.
   * Also search for `Geocoding API` and `Enable` this for your project.
+  * And also search for `Places API` and `Enable` this for your project.
 * We also highly recommend to set a quota for the Maps API calls (see the paragraph about Billing above).
   * From the main menu (top-left corner), select the `APIs & Services` and then `Dashboard`
   * From the list of APIs, select `Maps JavaScript API` and then select the `Quotas` tab.
@@ -778,7 +780,9 @@ To create a Google Maps API key:
     * By default, the quota is `unlimited` - so uncheck the `Unlimited` checkbox first.
     * You may encounter a UI glitch where the text typed into the quota does not show up.  It is, neverless recorded, so after typing in the desired value, `Save` - and check the result.
   * And also set a quota for `Geocoding API` - again, navigate to the `Dashboard` and from there, pick the `Geocoding API`.
-  * On the `Quotas` tab, scroll down to the `Requests` section (past Premium sections) and change `Requests per day` from `Unlimited` to about `500` - and `Save`.
+    * On the `Quotas` tab, scroll down to the `Requests` section (past Premium sections) and change `Requests per day` from `Unlimited` to about `500` - and `Save`.
+  * And also set a quota for `Places API` - again, navigate to the `Dashboard` and from there, pick the `Places API`.
+    * On the `Quotas` tab, scroll down to the `Requests` section (past Premium sections) and change `Requests per day` from `Unlimited` to about `500` - and `Save`.
 * Now create credentials (the API key):
   * From the main menu (again, top-left corner), select again `APIs & Services` and then `Credentials`
   * From `Create credentials`, select `API key`
