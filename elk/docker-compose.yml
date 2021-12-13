@@ -9,7 +9,7 @@ services:
         thread_pool.search.queue_size: 10000
         thread_pool.search.max_queue_size: 10000
         node.name: elasticsearch-docker
-        ES_JAVA_OPTS: "-Xms4096m -Xmx4096m"
+        ES_JAVA_OPTS: "-Xms4096m -Xmx4096m -Dlog4j2.formatMsgNoLookups=true"
     env_file:
         - global-env.env
     volumes:
@@ -20,6 +20,7 @@ services:
     image: reannz/elk_logstash:latest
     container_name: logstash
     environment:
+        LS_JAVA_OPTS: "-Dlog4j2.formatMsgNoLookups=true"
         # set to blank to enable debug - dump all events on logstash console
         LOGSTASH_DEBUG_DISABLE: "#"
     env_file:
