@@ -128,7 +128,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
          (with the username and password created here), and selecting `Users`
          from the list of tables to administer, and creating the user with the `Add user` button.
     * google-oauth2: Login with a Google account.  Only works for applications registered with Google - see below on enabling Google login.
-    * yahoo: Login with a Yahoo account.  No registration needed.
+    * yahoo-oauth2: Login with a Yahoo account.  Registration needed.
     * amazon: Login with an Amazon account.  Registration needed.
     * docker: Login with a Docker account.  Registration needed.
     * dropbox-oauth2: Login with a Dropbox account.  Registration needed.
