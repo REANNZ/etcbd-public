@@ -18,6 +18,7 @@ It is possible (and recommended if the resources are available) to run these on 
 
 Changes to this document since the workshop at APAN41 in Manilla, January 2016.
 
+* 2025-05-01: Updated login methods, added NRO_TLSPSK_REALM, updated images for Django 4.2 and PostgreSQL 17.
 * 2020-03-10: Add NRO_ROID, update images for EDB2.
 * 2020-03-10: Add Places API to Google Maps instructions.
 * 2019-02-15: Remove google-plus from supported login methods.
@@ -107,6 +108,7 @@ Modify the ````admintool.env```` file with deployment parameters - override at l
 * ````NRO_INST_FACEBOOK```` (OPTIONAL): the Social Media (Facebook) handle of the NRO institution
 * ````NRO_INST_TWITER```` (OPTIONAL): the Social Media (Twitter) handle of the NRO institution
 * ````NRO_FEDERATION_NAME````: the name of the AAI federation the Admintool is connected to (if available to the NRO).  Leave unmodified if no AAI federation exists locally.
+* ````NRO_TLSPSK_REALM````: the domain name to use as the scope for TLS/PSK identities (should correspond to the NRO eduroam domain, like `eduroam.nz` for NZ)
 * ````FEDERATION_DOC_URL````: URL to the federation policy document / documentation about the federation.
 * ````TIME_ZONE```` - your local timezone (for the DjNRO web application)
 * ````MAP_CENTER_LAT````, ````MAP_CENTER_LONG```` - pick your location
